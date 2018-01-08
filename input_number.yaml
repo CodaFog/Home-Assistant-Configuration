@@ -1,0 +1,24 @@
+alarmhour:
+  name: Heure
+  icon: mdi:timer
+  initial: 7
+  min: 0
+  max: 23
+  step: 1
+  mode: slider
+alarmminutes:
+  name: Minutes
+  icon: mdi:timer
+  initial: 0
+  min: 0
+  max: 59
+  step: 5
+  mode: slider
+thresillum:
+  name: Seuil Luminosité
+  icon: mdi:speedometer
+  initial: 300
+  min: 0
+  max: 1000
+  step: 25
+  mode: slider

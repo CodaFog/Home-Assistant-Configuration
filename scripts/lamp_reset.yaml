@@ -1,0 +1,19 @@
+#yeelight lamp reset
+door_lamp_reset:
+    alias: Reset Lampe entree
+    sequence:
+      - service: homeassistant.turn_on
+        entity_id: light.door_lamp
+        data:
+          brightness: 204
+          color_temp: 310
+
+bedroom_lamp_reset:
+    alias: Reset Lampe de Chevet
+    sequence:
+      - service: homeassistant.turn_on
+        entity_id: light.bedroom_lamp
+        data:
+          brightness: 204
+          color_temp: 310
+

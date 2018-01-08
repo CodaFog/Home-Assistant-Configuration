@@ -1,0 +1,8 @@
+#https://github.com/CiquattroFPV/Homeassistant-Example-Config/blob/master/scene/romantic.yaml
+- name: Romantique
+  entities:
+    light.door_lamp:
+      state: on
+      color_name: red
+      brightness: 1
+

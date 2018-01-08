@@ -1,0 +1,12 @@
+  - platform: ping
+    interval_seconds: 20
+    consider_home: 1200
+    hosts:
+      phone_anthony_huawei: 192.168.0.14 
+      phone_anthony_S6: 192.168.0.16 
+      phone_natacha: 192.168.0.17 
+      phone_nicole: 192.168.0.18
+      phone_patricia: 192.168.0.15
+
+#  - platform: owntracks
+#  - platform: bluetooth_tracker

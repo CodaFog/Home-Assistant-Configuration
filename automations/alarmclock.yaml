@@ -1,0 +1,38 @@
+# ALARM CLOCK
+# based on:
+# https://github.com/master-kenobi/ha-alarmclock
+- alias: 'reveil matin'
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.alarm_time.state }}'
+  condition:
+    condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_boolean.alarmworkday
+            state: 'on'
+          - condition: time
+            weekday:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+      - condition: state
+        entity_id: input_boolean.alarmworkday
+        state: 'off'
+  action:
+   # Yeelight sunrise
+    - service: script.turn_on
+      entity_id: script.sunrise_bedroom
+    - service: script.turn_on
+      entity_id: script.sunrise_principal_door
+   # turn on xiaomi gateway light
+    - service: light.turn_on
+      data_template:
+        entity_id: light.gateway_light_7811dcb0612b
+        brightness: 40
+        rgb_color: [255,77,0]
+

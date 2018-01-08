@@ -1,0 +1,65 @@
+# turn on door lamp when door is opened
+- alias: "Allumer la lampe de l'entree quand la porte est ouverte"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001de6011
+    to: 'on'
+  condition:
+    #- condition: state
+    #  entity_id: group.Famille
+    #  state: home
+    - condition: sun
+      after: sunset
+      after_offset: "-01:00:00"
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: group.principal_door
+        brightness: 10
+        rgb_color: [255,77,0]
+        transition: 3
+ 
+# Turn off lights when everybody leaves the house - 10 minutes after
+- alias: 'Eteindre les lampes quand absents'
+  trigger:
+    platform: state
+    entity_id: group.Famille
+    to: 'not_home'
+  condition:
+    condition: time
+    after: '10:00'
+  action:
+    service: light.turn_off
+    entity_id: group.lights
+
+# turn off lights at a specific time
+- alias: "Eteindre les lampes après minuit"
+  trigger:
+    - platform: time
+      at: '00:01:00'
+  action:
+    service: light.turn_off
+    entity_id: group.lights
+
+# Lights self shutdown between certain hours
+#- alias: "Auto Extinction des lampes"
+#  trigger:
+#    - platform: state
+#      entity_id:
+#        - light.bedroom_lamp
+#      state: 'on'
+#      for: '00:30:00'
+#    - platform: state
+#      entity_id:
+#        - light.gateway_light_7811dcb0612b
+#      state: 'on'
+#      for: '01:00:00'
+#  condition:
+#    condition: time
+#    after: '23:00:00'
+#    before: '06:00:00'
+#  action:
+#    - service: light.turn_off
+#      data_template:
+#        entity_id: " {{ trigger.entity_id }} "
+

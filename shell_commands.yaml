@@ -1,0 +1,2 @@
+bedroom_lamp_sunrise: './shell_scripts/yeelight_sunrise.sh "192.168.0.40"'
+door_lamp_sunrise: './shell_scripts/yeelight_sunrise.sh "192.168.0.45"'
