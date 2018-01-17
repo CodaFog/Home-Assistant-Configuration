@@ -1,9 +1,14 @@
+# based on https://home-assistant.io/cookbook/automation_sun/
 # Turn on lights at sunset if someone at home 45 minutes before
 - alias: "Lampe allumées au coucher du Soleil"
   trigger:
-    platform: sun
-    event: sunset
-    offset: "-00:45:00"
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    below: 1.5
+    #platform: sun
+    #event: sunset
+    #offset: "-00:45:00"
   condition:
     condition: state
     entity_id: group.Famille
@@ -11,12 +16,18 @@
   action:
     service: light.turn_on
     entity_id: group.principal_door #group.lights
+
 # Turn off lights at sunrise 1 hour after
 - alias: "Eteindre les lampes au lever du Soleil"
   trigger:
-    platform: sun
-    event: sunrise
-    offset: "+01:00:00"
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    below: -2.5
+    #platform: sun
+    #event: sunrise
+    #offset: "+01:00:00"
   action:
-    service: lights.turn_off
+    service: light.turn_off
     entity_id: group.lights
+

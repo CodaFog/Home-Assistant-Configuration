@@ -3,6 +3,9 @@
   entities:
     light.door_lamp:
       state: on
-      color_name: red
-      brightness: 1
+      brightness: 10
+      rgb_color: [255,77,0]
+      transition: 3
+      #color_name: red
+      #brightness: 1
 

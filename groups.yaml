@@ -162,6 +162,7 @@ Famille:
 media:
   entities:
     - media_player.kodi
+    - media_player.mopidy
 
 AlarmClock:
   control: hidden

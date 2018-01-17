@@ -1,0 +1,7 @@
+- name: normal
+  entities:
+    light.door_lamp:
+      state: on
+      brightness: 15
+      rgb_color: [255,77,0]
+      transition: 3

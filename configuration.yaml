@@ -80,6 +80,13 @@ tts:
 # Cloud
 #cloud:
 
+# Notify
+notify:
+  - name: pushbullet
+    platform: pushbullet
+    api_key: !secret pushbullet_key
+
+# Include configuration files
 group: !include groups.yaml
 automation: !include_dir_merge_list automations
 input_boolean: !include input_boolean.yaml
@@ -91,6 +98,7 @@ weblink: !include weblink.yaml
 zone: !include zones.yaml
 scene: !include_dir_merge_list scenes
 shell_command: !include shell_commands.yaml
+switch: !include switches.yaml
 
 #################
 # Xiaomi Gateway
@@ -132,6 +140,10 @@ mqtt:
 media_player:
   - platform: kodi
     host: 192.168.0.20
+ 
+  - platform: mpd
+    host: 192.168.0.20
+    name: mopidy
 
 google_assistant:
   project_id: !secret google_project_id

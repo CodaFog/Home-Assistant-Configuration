@@ -1,0 +1,7 @@
+- name: tvtime
+  entities:
+    light.door_lamp:
+      state: on
+      brightness: 5
+      rgb_color: [255,0,0] #[255,77,0]
+      transition: 3
