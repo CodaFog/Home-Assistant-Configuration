@@ -147,8 +147,20 @@
 - platform: template
   sensors:
     fleur_de_lune_humidity_too_low:
-      #entity_id:
-      #  - sensor.fleur_de_lune_moisture
       value_template: >
         {{ (((states.sensor.fleur_de_lune_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
       friendly_name: Fleur de Lune Humidity below 15%
+
+- platform: template
+  sensors:
+    tradescantia_humidity_too_low:
+      value_template: >
+        {{ (((states.sensor.tradescantia_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
+      friendly_name: tradescantia Humidity below 15%
+
+- platform: template
+  sensors:
+    chlorophytum_humidity_too_low:
+      value_template: >
+        {{ (((states.sensor.chlorophytum_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
+      friendly_name: chlorophytum Humidity below 15%

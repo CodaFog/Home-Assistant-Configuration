@@ -2,3 +2,7 @@ bedroom_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight
 door_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.45"'
 corridor_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.31"'
 living_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.46"'
+living_lamp_candle: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_candle.sh "192.168.0.46"'
+door_lamp_candle: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_candle.sh "192.168.0.45"'
+bedroom_lamp_method_478: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_method_4-7-8.sh "192.168.0.40"'
+living_lamp_method_478: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_method_4-7-8.sh "192.168.0.46"'

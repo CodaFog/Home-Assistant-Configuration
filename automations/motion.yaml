@@ -1,0 +1,38 @@
+# https://home-assistant.io/cookbook/turn_on_light_for_10_minutes_when_motion_detected/
+# https://home-assistant.io/components/binary_sensor.xiaomi_aqara/
+
+- alias: mouvement couloir allume lampe
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0002254942
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.corridor_lamp
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.illumination_7811dcb0612b
+        below: 300
+      - condition: state
+        entity_id: group.Famille
+        state: 'home'
+  action:
+    service: light.turn_on
+    data_template:
+        entity_id: light.corridor_lamp
+        rgb_color: [255,153,0]
+        brightness: 3
+        transition: 2
+
+- alias: mouvement eteint couloir 2 minutes apres
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0002254942
+    to: 'off'
+    for:
+      minutes: 2
+  action:
+    service: light.turn_off
+    entity_id: light.corridor_lamp

@@ -65,12 +65,28 @@ conversation:
 history:
   exclude:
     entities:
-      - sensor.gearbest
-      - sensor.time
       - sensor.systemmonitor
       - sensor.wunderground
       - sensor.moon
-      - sensor.cert_expiry
+      - sensor.alarm_time
+      - sensor.yr
+      - sensor.nowplaying_mopidy
+    domains:
+      - weblink
+      - zone
+      - plant
+
+# View all events in a logbook
+logbook:
+
+recorder:
+  purge_interval: 2
+  purge_keep_days: 30
+  exclude:
+    entities:
+      - sensor.systemmonitor
+      - sensor.wunderground
+      - sensor.moon
       - sensor.alarm_time
       - sensor.yr
       - sensor.nowplaying_mopidy
@@ -81,9 +97,6 @@ history:
       - zone
       - plant
       - input_number
-
-# View all events in a logbook
-logbook:
 
 # Enables a map showing the location of tracked devices
 map:
@@ -98,11 +111,19 @@ tts:
 # Cloud
 #cloud:
 
+## twilio
+#twilio:
+#  account_sid: !secret twilio_account
+#  auth_token: !secret twilio_token
+
 # Notify
 notify:
   - name: pushbullet
     platform: pushbullet
     api_key: !secret pushbullet_key
+#  - name: anthony_sms
+#    platform: twilio_sms
+#    from_number: !secret twilio_number
 
 # Include configuration files
 group: !include groups.yaml
@@ -147,18 +168,6 @@ light:
         name: living lamp
         use_music_mode: True
         transition: 100
-
-recorder:
-  purge_interval: 2
-  purge_keep_days: 30
-  exclude:
-    domains:
-      - weblink
-      - scene
-      - media_player
-      - zone
-      - input_number
-      - plant
 
 #mqtt:
 #  broker: 192.168.0.20

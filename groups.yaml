@@ -67,6 +67,7 @@ rooms_view:
     - group.principal_door
     - group.corridor
     - group.living_room
+    - group.kitchen
 
 automation_view:
   name: Home assistant
@@ -113,6 +114,7 @@ switchs:
     - binary_sensor.switch_158d0001d8e538
     - binary_sensor.cube_158d00011082c3
     - binary_sensor.switch_158d0001d620a5
+    - binary_sensor.switch_158d00021330ad
 
 lights:
   name: Eclairages
@@ -132,6 +134,7 @@ illumination:
   name: Luminosité
   entities:
     - sensor.illumination_7811dcb0612b
+    - sensor.illumination_158d0002254942
 
 #######################################
 #   grouped by localization           #
@@ -140,6 +143,7 @@ security:
   name: Sécurité
   entities:
     - binary_sensor.door_window_sensor_158d0001de6011
+    - binary_sensor.motion_sensor_158d0002254942
 principal_door:
   name: Entrée Principale
   entities:
@@ -157,6 +161,7 @@ living_room:
 #    - sensor.illumination_7811dcb0612b
     - binary_sensor.cube_158d00011082c3
     - sensor.fleur_de_lune_temperature
+    - binary_sensor.switch_158d00021330ad
 
 corridor:
   name: Couloir
@@ -164,6 +169,8 @@ corridor:
     - light.gateway_light_7811dcb0612b
     - sensor.illumination_7811dcb0612b
     - light.corridor_lamp
+    - binary_sensor.motion_sensor_158d0002254942
+    - sensor.illumination_158d0002254942
 kitchen:
   name: Cuisine
   entities:
@@ -245,7 +252,7 @@ homeautomation:
 scenes:
   name: Ambiances
   entities:
-    - scene.romantique
+    - scene.romantic
     - scene.tvtime
     - scene.normal
     - scene.nightmode

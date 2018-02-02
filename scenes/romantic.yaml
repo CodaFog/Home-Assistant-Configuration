@@ -1,5 +1,5 @@
 #https://github.com/CiquattroFPV/Homeassistant-Example-Config/blob/master/scene/romantic.yaml
-- name: Romantique
+- name: romantic
   entities:
     light.door_lamp:
       state: on
@@ -13,5 +13,3 @@
       #rgb_color: [255,77,0]
       transition: 3
       color_name: "darkviolet"
-
-
