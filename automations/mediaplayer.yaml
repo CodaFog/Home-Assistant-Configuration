@@ -11,7 +11,7 @@
       state: 'below_horizon'
   action:
       service: scene.turn_on
-      entity_id: scene.normal
+      entity_id: scene.nightmode #scene.normal
 
 - alias: "Media player playing"
   trigger:

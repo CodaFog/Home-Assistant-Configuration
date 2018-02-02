@@ -2,14 +2,27 @@
 sunrise_bedroom:
     alias: Simulation Aube Lampe de Chevet
     sequence:
-      - service: homeassistant.turn_on
-        entity_id: light.bedroom_lamp
+      #- service: homeassistant.turn_on
+      #  entity_id: light.bedroom_lamp
       - service: shell_command.bedroom_lamp_sunrise
 
 sunrise_principal_door:
     alias: Simulation Aube Ampoule Entree
     sequence:
-      - service: homeassistant.turn_on
-        entity_id: light.door_lamp
+      #- service: homeassistant.turn_on
+      #  entity_id: light.door_lamp
       - service: shell_command.door_lamp_sunrise
 
+sunrise_living_room:
+    alias: Simulation Aube Ampoule Salon
+    sequence:
+      #- service: homeassistant.turn_on
+      #  entity_id: light.living_lamp
+      - service: shell_command.living_lamp_sunrise
+
+sunrise_corridor:
+    alias: Simulation Aube Ampoule Couloir
+    sequence:
+      #- service: homeassistant.turn_on
+      #  entity_id: light.corridor_lamp
+      - service: shell_command.corridor_lamp_sunrise

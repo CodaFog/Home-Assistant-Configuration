@@ -17,3 +17,21 @@ bedroom_lamp_reset:
           brightness: 204
           color_temp: 310
 
+living_lamp_reset:
+    alias: Reset Lampe Salon
+    sequence:
+      - service: homeassistant.turn_on
+        entity_id: light.living_lamp
+        data:
+          brightness: 204
+          color_temp: 310
+
+corridor_lamp_reset:
+    alias: Reset Lampe Couloir
+    sequence:
+      - service: homeassistant.turn_on
+        entity_id: light.corridor_lamp
+        data:
+          brightness: 204
+          color_temp: 310
+

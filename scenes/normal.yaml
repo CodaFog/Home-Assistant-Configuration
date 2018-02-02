@@ -2,6 +2,17 @@
   entities:
     light.door_lamp:
       state: on
-      brightness: 15
-      rgb_color: [255,77,0]
+      brightness: 200
+      rgb_color: [255,183,123]
       transition: 3
+    light.living_lamp:
+      state: on
+      brightness: 200
+      rgb_color: [255,183,123]
+      transition: 3
+    light.corridor_lamp:
+      state: on
+      brightness: 200
+      rgb_color: [255,183,123]
+      transition: 3
+

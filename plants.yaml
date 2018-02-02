@@ -1,0 +1,41 @@
+  fleur_de_lune:
+    sensors:
+      moisture: sensor.fleur_de_lune_moisture #humidite
+      battery: sensor.fleur_de_lune_battery
+      temperature: sensor.fleur_de_lune_temperature
+      conductivity: sensor.fleur_de_lune_conductivity
+      brightness: sensor.fleur_de_lune_light_intensity
+    min_moisture: 15
+    max_moisture: 65
+    min_battery: 15
+    min_conductivity: 350
+    max_conductivity: 2000
+#  min_temperature: 15 max_temperature: 32 min_brightness: 1600 max_brightness: 3200
+
+  chlorophytum:
+    sensors:
+      moisture: sensor.chlorophytum_moisture #humidite
+      battery: sensor.chlorophytum_battery
+      temperature: sensor.chlorophytum_temperature
+      conductivity: sensor.chlorophytum_conductivity
+      brightness: sensor.chlorophytum_light_intensity
+    min_moisture: 15
+    max_moisture: 65
+    min_battery: 15
+    min_conductivity: 350
+    max_conductivity: 2000
+#  min_temperature: 15 max_temperature: 32 min_brightness: 1600 max_brightness: 3200
+
+  tradescantia:
+    sensors:
+      moisture: sensor.tradescantia_moisture #humidite
+      battery: sensor.tradescantia_battery
+      temperature: sensor.tradescantia_temperature
+      conductivity: sensor.tradescantia_conductivity
+      brightness: sensor.tradescantia_light_intensity
+    min_moisture: 15
+    max_moisture: 65
+    min_battery: 15
+    min_conductivity: 350
+    max_conductivity: 2000
+#  min_temperature: 15 max_temperature: 32 min_brightness: 1600 max_brightness: 3200

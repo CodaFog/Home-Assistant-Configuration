@@ -63,6 +63,24 @@ conversation:
 
 # Enables support for tracking state changes over time
 history:
+  exclude:
+    entities:
+      - sensor.gearbest
+      - sensor.time
+      - sensor.systemmonitor
+      - sensor.wunderground
+      - sensor.moon
+      - sensor.cert_expiry
+      - sensor.alarm_time
+      - sensor.yr
+      - sensor.nowplaying_mopidy
+    domains:
+      - media_player
+      - scene
+      - weblink
+      - zone
+      - plant
+      - input_number
 
 # View all events in a logbook
 logbook:
@@ -91,6 +109,7 @@ group: !include groups.yaml
 automation: !include_dir_merge_list automations
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
+plant: !include plants.yaml
 script: !include_dir_merge_named scripts
 sensor: !include sensors.yaml
 device_tracker: !include device_tracker.yaml
@@ -120,22 +139,34 @@ light:
         name: Bedroom lamp
         use_music_mode: True
         transition: 100
+      192.168.0.31:
+        name: corridor lamp
+        use_music_mode: True
+        transition: 100
+      192.168.0.46:
+        name: living lamp
+        use_music_mode: True
+        transition: 100
 
 recorder:
   purge_interval: 2
   purge_keep_days: 30
   exclude:
     domains:
-      - automation
       - weblink
+      - scene
+      - media_player
+      - zone
+      - input_number
+      - plant
 
-mqtt:
-  broker: 192.168.0.20
-  port: 1883
-  client_id: !secret mqtt_client_id
-  keepalive: 60
-  username: !secret mqtt_user 
-  password: !secret mqtt_pass
+#mqtt:
+#  broker: 192.168.0.20
+#  port: 1883
+#  client_id: !secret mqtt_client_id
+#  keepalive: 60
+#  username: !secret mqtt_user 
+#  password: !secret mqtt_pass
 
 media_player:
   - platform: kodi

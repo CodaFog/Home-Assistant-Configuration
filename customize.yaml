@@ -21,6 +21,21 @@ binary_sensor.switch_158d0001d620a5:
 sensor.illumination_7811dcb0612b:
   friendly_name: Capteur Luminosité Gateway Xiaomi
 
+sensor.illumination_158d0002254942:
+  friendly_name: Capteur Luminosité Mouvement Xiaomi
+
+binary_sensor.motion_sensor_158d0002254942:
+  friendly_name: Capteur Mouvement Couloir
+
+binary_sensor.cube_158d00011082c3:
+  friendly_name: Cube Xiaomi
+
+light.corridor_lamp:
+  friendly_name: Ampoule Yeelight Couloir
+
+light.living_lamp:
+  friendly_name: Ampoule Yeelight Salon
+
 group.all_automations:
   hidden: false
 

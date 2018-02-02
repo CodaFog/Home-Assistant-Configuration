@@ -15,12 +15,19 @@ default_view:
     - group.switchs
     - group.security
     - group.links
+    - group.scenes
 
 lights_view:
   view: yes
   icon: mdi:lightbulb
   entities:
     - group.lights
+
+plants_view:
+  view: yes
+  icon: mdi:flower
+  entities:
+    - group.plants
 
 sensor_view:
   name: Capteurs
@@ -29,8 +36,8 @@ sensor_view:
   entities:
     - group.doors_windows
 #    - sensor.illumination_7811dcb0612b
-#    - group.temperature
-#    - group.motion_sensors
+    - group.temperature
+    - group.motion_sensors
     - group.illumination
 
 weather_view:
@@ -59,7 +66,7 @@ rooms_view:
     - group.bedroom
     - group.principal_door
     - group.corridor
-#    - group.living_room
+    - group.living_room
 
 automation_view:
   name: Home assistant
@@ -72,24 +79,40 @@ automation_view:
 #    - group.homeautomation
     - group.scenes
 
+status_view:
+  name: Statut serveur
+  view: yes
+  icon: mdi:server
+  entities:
+    - sensor.ssl_certificate_expiry
+    - sensor.cpu_used
+    - sensor.average_load_1m
+    - sensor.ram_used
+    - sensor.last_boot
+    - updater.updater
+
 #######################################
 #    grouped by type of sensor        #
 #######################################
-#temperature:
-#  name: Température et humidité
-#  entities:
+temperature:
+  name: Température et humidité
+  entities:
+     - sensor.fleur_de_lune_temperature
+     - sensor.chlorophytum_temperature
 #    - sensor.temperature_158d000156cbfa
 #    - sensor.humidity_158d000156cbfa
-#motion_sensors:
-#  name: Mouvements
-#  entities:
-#    - binary_sensor.motion_sensor_158d000159a218
-#
+
+motion_sensors:
+  name: Mouvements
+  entities:
+    - binary_sensor.motion_sensor_158d0002254942
 
 switchs:
   name: Interrupteurs
   entities:
     - binary_sensor.switch_158d0001d8e538
+    - binary_sensor.cube_158d00011082c3
+    - binary_sensor.switch_158d0001d620a5
 
 lights:
   name: Eclairages
@@ -97,6 +120,8 @@ lights:
     - light.gateway_light_7811dcb0612b
     - light.door_lamp #light.yeelight_rgb_34ce008cfea8
     - light.bedroom_lamp #light.yeelight_UNKNOWN_7811dc8fe4c7
+    - light.corridor_lamp #
+    - light.living_lamp #
 
 doors_windows:
   name: Portes et fenêtres
@@ -107,6 +132,7 @@ illumination:
   name: Luminosité
   entities:
     - sensor.illumination_7811dcb0612b
+
 #######################################
 #   grouped by localization           #
 #######################################
@@ -124,16 +150,24 @@ bedroom:
   entities:
     - light.bedroom_lamp #light.yeelight_UNKNOWN_7811dc8fe4c7
     - binary_sensor.switch_158d0001d8e538
-#living_room:
-#  name: Salon
-#  entities:
-#    - light.gateway_light_7811dcb0612b
+living_room:
+  name: Salon
+  entities:
+    - light.living_lamp
 #    - sensor.illumination_7811dcb0612b
+    - binary_sensor.cube_158d00011082c3
+    - sensor.fleur_de_lune_temperature
+
 corridor:
   name: Couloir
   entities:
     - light.gateway_light_7811dcb0612b
     - sensor.illumination_7811dcb0612b
+    - light.corridor_lamp
+kitchen:
+  name: Cuisine
+  entities:
+    - sensor.chlorophytum_temperature
 
 ##############
 # LIENS
@@ -213,3 +247,28 @@ scenes:
   entities:
     - scene.romantique
     - scene.tvtime
+    - scene.normal
+    - scene.nightmode
+
+########
+# PLANT
+########
+plants:
+  name: Plantes
+  control: hidden
+  entities:
+    - sensor.fleur_de_lune_temperature
+    - sensor.fleur_de_lune_moisture
+    - sensor.fleur_de_lune_light_intensity
+    - sensor.fleur_de_lune_conductivity
+    - sensor.fleur_de_lune_battery
+    - sensor.chlorophytum_temperature
+    - sensor.chlorophytum_moisture
+    - sensor.chlorophytum_light_intensity
+    - sensor.chlorophytum_conductivity
+    - sensor.chlorophytum_battery
+    - sensor.tradescantia_temperature
+    - sensor.tradescantia_moisture
+    - sensor.tradescantia_light_intensity
+    - sensor.tradescantia_conductivity
+    - sensor.tradescantia_battery

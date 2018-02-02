@@ -1,0 +1,18 @@
+- name: nightmode
+  entities:
+    light.door_lamp:
+      state: on
+      brightness: 3
+      rgb_color: [255,153,0]
+      transition: 2
+    light.living_lamp:
+      state: on
+      brightness: 3
+      rgb_color: [255,153,0]
+      transition: 2
+#    light.corridor_lamp:
+#      state: on
+#      brightness: 3
+#      rgb_color: [255,153,0]
+#      transition: 2
+

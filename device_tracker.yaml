@@ -8,5 +8,10 @@
       phone_nicole: 192.168.0.18
       phone_patricia: 192.168.0.15
 
+  - platform: freebox
+    host: http://mafreebox.freebox.fr
+    username: !secret freebox_app_id
+    password: !secret freebox_app_token
+
 #  - platform: owntracks
 #  - platform: bluetooth_tracker
