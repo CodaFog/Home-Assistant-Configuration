@@ -4,9 +4,9 @@
     radius: 250
     icon: mdi:worker
     
-  - name: Ecole
-    latitude: !secret school_latitude
-    longitude: !secret school_longitude
-    radius: 100
-    icon: mdi:school
+#  - name: Ecole
+#    latitude: !secret school_latitude
+#    longitude: !secret school_longitude
+#    radius: 100
+#    icon: mdi:school
 

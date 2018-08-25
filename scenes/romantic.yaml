@@ -1,7 +1,7 @@
 #https://github.com/CiquattroFPV/Homeassistant-Example-Config/blob/master/scene/romantic.yaml
 - name: romantic
   entities:
-    light.door_lamp:
+    light.kitchen_lamp:
       state: on
       brightness: 10
       #rgb_color: [255,77,0]

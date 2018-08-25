@@ -9,19 +9,27 @@ default_view:
     - sun.sun
     - sensor.time
     - group.AlarmClock
-#    - group.IlluminationGateway
     - group.famille
     - group.InputBooleans
     - group.switchs
     - group.security
     - group.links
     - group.scenes
+    - group.vacuum
+    - group.consumption
 
 lights_view:
   view: yes
   icon: mdi:lightbulb
   entities:
     - group.lights
+
+vacuum_view:
+  name: Aspirateur
+  view: yes
+  icon: mdi:robot-vacuum
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
 
 plants_view:
   view: yes
@@ -58,16 +66,18 @@ media_view:
 #    - media_player.kodi
      - group.media
 
+
 rooms_view:
   name: Pièces
   view: yes
   icon: mdi:home-modern #house-modern
   entities:
     - group.bedroom
-    - group.principal_door
+    #- group.principal_door
     - group.corridor
     - group.living_room
     - group.kitchen
+    - group.children
 
 automation_view:
   name: Home assistant
@@ -86,9 +96,10 @@ status_view:
   icon: mdi:server
   entities:
     - sensor.ssl_certificate_expiry
-    - sensor.cpu_used
-    - sensor.average_load_1m
-    - sensor.ram_used
+    - sensor.processor_use
+    - sensor.load_5m
+    - sensor.disk_use_percent
+    - sensor.memory_use_percent
     - sensor.last_boot
     - updater.updater
 
@@ -115,15 +126,18 @@ switchs:
     - binary_sensor.cube_158d00011082c3
     - binary_sensor.switch_158d0001d620a5
     - binary_sensor.switch_158d00021330ad
+    - switch.prise_halogene_enfants
 
 lights:
   name: Eclairages
   entities:
     - light.gateway_light_7811dcb0612b
-    - light.door_lamp #light.yeelight_rgb_34ce008cfea8
-    - light.bedroom_lamp #light.yeelight_UNKNOWN_7811dc8fe4c7
-    - light.corridor_lamp #
-    - light.living_lamp #
+    - light.child_lamp
+    - light.bedroom_lamp
+    - light.corridor_lamp
+    - light.living_lamp
+    - light.kitchen_lamp
+    - switch.prise_halogene_enfants
 
 doors_windows:
   name: Portes et fenêtres
@@ -136,6 +150,26 @@ illumination:
     - sensor.illumination_7811dcb0612b
     - sensor.illumination_158d0002254942
 
+vacuum:
+  name: Aspirateur
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
+
+consumption:
+  name: Consommation électrique
+  entities:
+    - sensor.linky_daily_1d_consumption
+    - sensor.price_conso_total
+    - sensor.heures_creuses
+    - sensor.price_heures_creuses
+    - sensor.heures_pleines
+    - sensor.price_heures_plaines
+    - sensor.hline_1
+    - sensor.linky_daily_2d_consumption
+    - sensor.linky_monthly_current_consumption
+    - sensor.linky_monthly_1m_consumption
+    - sensor.linky_yearly_current_consumption
+
 #######################################
 #   grouped by localization           #
 #######################################
@@ -144,21 +178,25 @@ security:
   entities:
     - binary_sensor.door_window_sensor_158d0001de6011
     - binary_sensor.motion_sensor_158d0002254942
+
 principal_door:
   name: Entrée Principale
   entities:
-    - light.door_lamp #light.yeelight_rgb_34ce008cfea8
+    #- light.door_lamp
     - binary_sensor.door_window_sensor_158d0001de6011
+
 bedroom:
   name: Chambre
   entities:
-    - light.bedroom_lamp #light.yeelight_UNKNOWN_7811dc8fe4c7
+    - light.bedroom_lamp 
     - binary_sensor.switch_158d0001d8e538
+
 living_room:
   name: Salon
   entities:
     - light.living_lamp
-#    - sensor.illumination_7811dcb0612b
+    - vacuum.xiaomi_vacuum_cleaner
+    #- sensor.illumination_7811dcb0612b
     - binary_sensor.cube_158d00011082c3
     - sensor.fleur_de_lune_temperature
     - binary_sensor.switch_158d00021330ad
@@ -171,15 +209,25 @@ corridor:
     - light.corridor_lamp
     - binary_sensor.motion_sensor_158d0002254942
     - sensor.illumination_158d0002254942
+
 kitchen:
   name: Cuisine
   entities:
-    - sensor.chlorophytum_temperature
+    - light.kitchen_lamp
+    #- sensor.chlorophytum_temperature
+
+children:
+  name: Chambre Enfants
+  entities:
+    - light.child_lamp
+    - switch.prise_halogene_enfants
 
 ##############
 # LIENS
 ##############
 Links:
+ name: Liens
+ entities:
   - weblink.freebox
   - weblink.Home_Assistant
   - weblink.Kodi
@@ -194,11 +242,11 @@ Links:
 ####################
 Famille:
   entities:
-    - device_tracker.phone_anthony_huawei
     - device_tracker.phone_natacha
     - device_tracker.phone_nicole
     - device_tracker.phone_patricia
-    - device_tracker.phone_anthony_s6
+    #- device_tracker.phone_anthony_boulot
+    - device_tracker.phone_anthony
 
 media:
   entities:

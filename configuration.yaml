@@ -5,7 +5,7 @@ homeassistant:
   latitude: !secret latitude_home
   longitude: !secret longitude_home
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 60
+  elevation: !secret elevation_home
   # metric for Metric, imperial for Imperial
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -38,10 +38,10 @@ http:
   ssl_certificate: !secret ssl_certificate
   ssl_key: !secret ssl_key  
   #server_port: 80
-  ip_ban_enabled: True
+  ip_ban_enabled: False #True
   login_attempts_threshold: 3
   trusted_networks:
-    - 192.168.0.20
+    - 192.168.0.10
     - 192.168.0.14
     - 192.168.0.17
 
@@ -61,42 +61,57 @@ discovery:
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
+#panel_iframe:
+#  configurator:
+#    title: Configurator
+#    icon: mdi:wrench
+#    url: https://192.168.0.20:3218
+
 # Enables support for tracking state changes over time
 history:
   exclude:
     entities:
-      - sensor.systemmonitor
-      - sensor.wunderground
       - sensor.moon
-      - sensor.alarm_time
-      - sensor.yr
-      - sensor.nowplaying_mopidy
+      - sensor.last_boot
     domains:
       - weblink
-      - zone
-      - plant
+      #- zone
+      - automations
+      - updater
 
 # View all events in a logbook
 logbook:
-
-recorder:
-  purge_interval: 2
-  purge_keep_days: 30
   exclude:
     entities:
-      - sensor.systemmonitor
-      - sensor.wunderground
-      - sensor.moon
-      - sensor.alarm_time
-      - sensor.yr
-      - sensor.nowplaying_mopidy
+      - sensor.date
+      - sensor.time
+      - sensor.time_utc
+      - sensor.time__date
+      - sensor.load_5m
+      - sensor.date__time
     domains:
-      - media_player
-      - scene
       - weblink
-      - zone
-      - plant
-      - input_number
+      - group
+
+recorder:
+  #purge_interval: 2
+  purge_keep_days: 30
+  db_url: !secret mariadb_connection_url
+  exclude:
+    entities:
+      #- sun.sun
+      - sensor.moon
+      - sensor.last_boot
+      #- sensor.date
+    domains:
+      #- media_player
+      #- scene
+      - weblink
+      #- zone
+      #- plant
+      #- input_number
+      - automations
+      - updater
 
 # Enables a map showing the location of tracked devices
 map:
@@ -111,26 +126,29 @@ tts:
 # Cloud
 #cloud:
 
-## twilio
-#twilio:
-#  account_sid: !secret twilio_account
-#  auth_token: !secret twilio_token
+# twilio
+twilio:
+  account_sid: !secret twilio_account
+  auth_token: !secret twilio_token
 
 # Notify
 notify:
   - name: pushbullet
     platform: pushbullet
     api_key: !secret pushbullet_key
-#  - name: anthony_sms
-#    platform: twilio_sms
-#    from_number: !secret twilio_number
+  - name: anthony_sms
+    platform: twilio_sms
+    from_number: !secret twilio_number
+  - name: anthony_messenger
+    platform: facebook
+    page_access_token: !secret facebook_token
 
 # Include configuration files
 group: !include groups.yaml
 automation: !include_dir_merge_list automations
 input_boolean: !include input_boolean.yaml
 input_number: !include input_number.yaml
-plant: !include plants.yaml
+#plant: !include plants.yaml
 script: !include_dir_merge_named scripts
 sensor: !include sensors.yaml
 device_tracker: !include device_tracker.yaml
@@ -152,21 +170,33 @@ xiaomi_aqara:
 light:
   - platform: yeelight
     devices:
-      192.168.0.45:
-        name: Door lamp
-        use_music_mode: True
-        transition: 100
       192.168.0.40:
+        #name: Door lamp
+        name: child lamp
+        use_music_mode: False #True
+        save_on_change: False
+        transition: 100
+      192.168.0.41:
         name: Bedroom lamp
-        use_music_mode: True
+        use_music_mode: False #True
+        save_on_change: False
         transition: 100
-      192.168.0.31:
+      192.168.0.42:
+        name: kitchen lamp
+        use_music_mode: False #True
+        save_on_change: False
+        transition: 100
+      # avant: 192.168.0.42:
+      192.168.0.43:
         name: corridor lamp
-        use_music_mode: True
+        use_music_mode: False #True
+        save_on_change: False
         transition: 100
-      192.168.0.46:
+      # living room avant : 192.168.0.43
+      192.168.0.44:
         name: living lamp
-        use_music_mode: True
+        use_music_mode: False #True
+        save_on_change: False
         transition: 100
 
 #mqtt:
@@ -196,6 +226,11 @@ google_assistant:
     - light
     - media_player
     - group
+
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.0.50
+    token: !secret xiaomi_vacuum
 
 #hdmi_cec:
 #  devices:

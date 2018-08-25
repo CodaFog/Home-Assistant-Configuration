@@ -1,6 +1,6 @@
 - name: nightmode
   entities:
-    light.door_lamp:
+    light.kitchen_lamp:
       state: on
       brightness: 3
       rgb_color: [255,153,0]

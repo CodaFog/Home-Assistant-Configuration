@@ -12,3 +12,7 @@
         service: homeassistant.turn_off
         entity_id: media_player.mopidy
 
+- platform: tplink
+  host: 192.168.0.30
+  name: Prise Halogene Enfants
+  enable_leds: True

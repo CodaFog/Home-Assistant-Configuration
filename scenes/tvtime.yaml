@@ -1,6 +1,6 @@
 - name: tvtime
   entities:
-    light.door_lamp: off
+    light.kitchen_lamp: off
     light.living_lamp:
       state: on
       brightness_pct: 10

@@ -2,8 +2,8 @@ light.gateway_light_7811dcb0612b:
   friendly_name: Anneau lumineux Gateway Xiaomi
 
 #light.yeelight_rgb_34ce008cfea8:
-light.door_lamp:
-  friendly_name: Ampoule Yeelight Entrée
+light.child_lamp:
+  friendly_name: Ampoule Yeelight Enfants
 
 #light.yeelight_UNKNOWN_7811dc8fe4c7:
 light.bedroom_lamp:
@@ -38,6 +38,9 @@ light.corridor_lamp:
 
 light.living_lamp:
   friendly_name: Ampoule Yeelight Salon
+
+light.kitchen_lamp:
+  friendly_name: Ampoule Yeelight Cuisine
 
 group.all_automations:
   hidden: false

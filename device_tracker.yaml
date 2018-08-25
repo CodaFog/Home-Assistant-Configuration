@@ -2,16 +2,15 @@
     interval_seconds: 20
     consider_home: 1200
     hosts:
-      phone_anthony_huawei: 192.168.0.14 
-      phone_anthony_S6: 192.168.0.16 
+      #phone_anthony_boulot: 192.168.0.16 
       phone_natacha: 192.168.0.17 
       phone_nicole: 192.168.0.18
       phone_patricia: 192.168.0.15
+      phone_anthony: 192.168.0.14
 
   - platform: freebox
-    host: http://mafreebox.freebox.fr
-    username: !secret freebox_app_id
-    password: !secret freebox_app_token
+    host: !secret freebox_host
+    port: !secret freebox_port
 
 #  - platform: owntracks
 #  - platform: bluetooth_tracker

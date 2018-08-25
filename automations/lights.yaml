@@ -1,5 +1,5 @@
 # turn on door lamp when door is opened
-- alias: "Allumer la lampe de l'entree quand la porte est ouverte"
+- alias: "Allumer la lampe du salon quand la porte est ouverte"
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d0001de6011
@@ -14,7 +14,7 @@
   action:
     - service: light.turn_on
       data_template:
-        entity_id: group.principal_door
+        entity_id: light.living_lamp
         brightness: 10
         rgb_color: [255,77,0]
         transition: 3

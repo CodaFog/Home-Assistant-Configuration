@@ -1,6 +1,6 @@
 - name: normal
   entities:
-    light.door_lamp:
+    light.kitchen_lamp:
       state: on
       brightness: 200
       rgb_color: [255,183,123]

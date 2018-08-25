@@ -3,7 +3,7 @@
 ##########################################################
 ## Pushbullet - SSL Expiration < 16
 ##########################################################
-- alias: Notification Text - SSL Expiration 15 days
+- alias: Notification - SSL Expiration 15 days
   trigger:
     - platform: numeric_state
       entity_id: sensor.ssl_certificate_expiry
@@ -12,51 +12,56 @@
     - service: notify.pushbullet
       data:
         title: "Home Assistant"
-        message: "SSL HASS expire dans {{ states.sensor.ssl_certificate_expiry.state }} jours !"
+        message: "Certificat SSL HASS expire dans {{ states.sensor.ssl_certificate_expiry.state }} jours !"
+    - service: notify.anthony_messenger
+      data:
+        title: "Home Assistant"
+        message: "Certificat SSL HASS expire dans {{ states.sensor.ssl_certificate_expiry.state }} jours !"
+        target: !secret anthony_number
 
 
 ##########################################################
 ## Notify if Gearbest price drops
 ##########################################################
-- alias: Notification - Baisse des prix Gearbest
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.gearbest_door_sensor_decreasing
-      to: 'on'
-    - platform: state
-      entity_id: binary_sensor.gearbest_motion_sensor_decreasing
-      to: 'on'
-    - platform: state
-      entity_id: binary_sensor.gearbest_switch_decreasing
-      to: 'on'
-    - platform: state
-      entity_id: binary_sensor.gearbest_temp_sensor_decreasing
-      to: 'on'
-  action:
-    - service: notify.pushbullet
-      data_template:
-        title: "Home Assistant"
-        message: 'Prix de {{trigger.to_state.attributes.friendly_name}} en baisse.'
+#- alias: Notification - Baisse des prix Gearbest
+#  trigger:
+#    - platform: state
+#      entity_id: binary_sensor.gearbest_door_sensor_decreasing
+#      to: 'on'
+#    - platform: state
+#      entity_id: binary_sensor.gearbest_motion_sensor_decreasing
+#      to: 'on'
+#    - platform: state
+#      entity_id: binary_sensor.gearbest_switch_decreasing
+#      to: 'on'
+#    - platform: state
+#      entity_id: binary_sensor.gearbest_temp_sensor_decreasing
+#      to: 'on'
+#  action:
+#    - service: notify.pushbullet
+#      data_template:
+#        title: "Home Assistant"
+#        message: 'Prix de {{trigger.to_state.attributes.friendly_name}} en baisse.'
 
 ##########################################################
 ## Principal Door - Open for 5 minutes
 ##########################################################
-- alias: Notification - Entree ouverte depuis 5 min
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.door_window_sensor_158d0001de6011
-      to: 'on'
-      for:
-        minutes: 5
-  condition:
-    - condition: state
-      entity_id: group.Famille
-      state: 'home'
-  action:
-    - service: notify.pushbullet
-      data:
-        title: "Home Assistant"
-        message: "La porte d'entree est ouverte depuis 5 minutes."
+#- alias: Notification - Entree ouverte depuis 5 min
+#  trigger:
+#    - platform: state
+#      entity_id: binary_sensor.door_window_sensor_158d0001de6011
+#      to: 'on'
+#      for:
+#        minutes: 5
+#  condition:
+#    - condition: state
+#      entity_id: group.Famille
+#      state: 'home'
+#  action:
+#    - service: notify.pushbullet
+#      data:
+#        title: "Home Assistant"
+#        message: "La porte d'entree est ouverte depuis 5 minutes."
 
 ##########################################################
 ## New version of Home Assistant
@@ -66,31 +71,98 @@
     platform: state
     entity_id: updater.updater
   action:
-    service: notify.pushbullet
+    service: notify.anthony_messenger
     data:
       message: 'Nouvelle version de Home Assistant disponible.'
+      target: !secret anthony_number
 
 ##########################################################
 ## Pushbullet - Low Battery Alert
 ##########################################################
 # https://community.home-assistant.io/t/howto-create-battery-alert-without-creating-a-template-for-every-device/30576/6
-- alias: 'Battery Alert'
-  trigger:
-    - platform: time
-      at: '10:00:00'
-    - platform: time
-      at: '18:00:00'
-  condition:
-    condition: template
-    value_template: "{% if states('sensor.low_battery') %}true{% endif %}"
-  action:
-    - service: persistent_notification.create
-      data_template:
-        title: Low Battery
-        message: "{{ states('sensor.low_battery') }}"
-        notification_id: low-battery-alert
-    - service: notify.pushbullet
-      data:
-        title: "Home Assistant"
-        message: "Batterie faible pour {{ states('sensor.low_battery') }}"
+#- alias: 'Battery Alert'
+#  trigger:
+#    - platform: time
+#      at: '10:00:00'
+#    - platform: time
+#      at: '18:00:00'
+#  condition:
+#    condition: template
+#    value_template: "{% if states('sensor.low_battery') %}true{% endif %}"
+#  action:
+#    - service: persistent_notification.create
+#      data_template:
+#        title: Low Battery
+#        message: "{{ states('sensor.low_battery') }}"
+#        notification_id: low-battery-alert
+#    - service: notify.pushbullet
+#      data:
+#        title: "Home Assistant"
+#        message: "Batterie faible pour {{ states('sensor.low_battery') }}"
 
+###############################################################################################
+#                                                                                             #
+# Notify me on my mobile phone of an event that affects my plants                             #
+#          Water/Battery/Food                                                                 #
+#                                                                                             #
+###############################################################################################
+#- alias: 'Notification - Plant Water Check'
+#  initial_state: 'off'
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sensor.fleur_de_lune_moisture, sensor.chlorophytum_moisture, sensor.tradescantia_moisture
+#    below: 30
+#  condition:
+#    - condition: sun
+#      after: sunset
+#    - condition: time
+#      after:  '19:00:00'
+#      before: '19:01:00'
+#    - condition: state
+#      entity_id: group.Famille
+#      state: 'home'
+#  action:
+#    - service: notify.pushbullet
+#      data_template:
+#        message: 'La plante {{ trigger.from_state.attributes.friendly_name }} a besoin d eau!'
+#
+#- alias: 'Notification - Plant Battery Check'
+#  initial_state: off
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sensor.fleur_de_lune_battery, sensor.chlorophytum_battery, sensor.tradescantia_battery
+#    below: 20
+#    above: 1
+#  condition:
+#    - condition: sun
+#      after: sunset
+#    - condition: time
+#      after:  '19:00:00'
+#      before: '19:01:00'
+#    - condition: state
+#      entity_id: group.Famille
+#      state: 'home'
+#  action:
+#    - service: notify.pushbullet
+#      data_template:
+#        message: 'Le capteur de plante {{ trigger.from_state.attributes.friendly_name }} a besoin d une nouvelle pile !'
+#
+#- alias: 'Notification - Plant Food Check'
+#  initial_state: 'off'
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sensor.fleur_de_lune_conductivity, sensor.chlorophytum_conductivity, sensor.tradescantia_conductivity
+#    below: 200
+#  condition:
+#    - condition: sun
+#      after: sunset
+#    - condition: time
+#      after:  '19:00:00'
+#      before: '19:01:00'
+#    - condition: state
+#      entity_id: group.Famille
+#      state: 'home'
+#  action:
+#    - service: notify.pushbullet
+#      data_template:
+#        message: 'La plante {{ trigger.from_state.attributes.friendly_name }} a besoin d engrais!'

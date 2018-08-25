@@ -12,13 +12,11 @@
 - platform: systemmonitor
   resources:
     - type: disk_use_percent
-      arg: /home
-    - type: disk_use_percent
       arg: /
     - type: memory_use_percent
     - type: last_boot
     - type: processor_use
-    - type: load_1m
+    - type: load_5m
 
 # Weather
 - platform: wunderground
@@ -45,6 +43,14 @@
       friendly_name: 'Heure'
       value_template: '{{ "%0.02d:%0.02d" | format(states("input_number.alarmhour") | int, states("input_number.alarmminutes") | int) }}'
 
+- platform: sql
+  db_url: !secret mariadb_connection_url
+  queries:
+    - name: HASS DB size
+      query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1024 / 1024, 1) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+      column: 'value'
+      unit_of_measurement: MB
+
 - platform: time_date
   display_options:
     - 'time'
@@ -53,12 +59,14 @@
     - 'time_date'
     - 'time_utc'
 
-# xiaomi Mi Flora
+## xiaomi Mi Flora
 - platform: miflora
   mac: !secret mac_miflora1
   name: Fleur de Lune
   force_update: true
   median: 1
+  timeout: 60
+  cache_value: 1800
   monitored_conditions:
     - temperature
     - moisture
@@ -71,6 +79,8 @@
   name: chlorophytum
   force_update: true
   median: 1
+  timeout: 60
+  cache_value: 1870
   monitored_conditions:
     - temperature
     - moisture
@@ -83,6 +93,8 @@
   name: tradescantia
   force_update: true
   median: 1
+  timeout: 60
+  cache_value: 1730
   monitored_conditions:
     - temperature
     - moisture
@@ -90,18 +102,117 @@
     - battery
     - conductivity
 
-# Gearbest
-- platform: gearbest
-  currency: EUR
-  items:
-    - id: 626695
-      name: Xiaomi Aqara Switch
-    - id: 626702
-      name: Xiaomi Aqara Temp Sensor
-    - id: 659226
-      name: Xiaomi Aqara Motion Sensor
-    - id: 626703
-      name: Xiaomi Aqara Door Sensor
+#linky
+- platform: linky
+  username: !secret linky_username
+  password: !secret linky_password
+  monitored_variables:
+    - daily_1d_consumption
+    - daily_2d_consumption
+    - monthly_1m_consumption
+    - monthly_current_consumption
+    - yearly_current_consumption
+#### To calculate Peak and Off-Peak consumption ####
+    - halfhourly_00_00_consumption
+    - halfhourly_00_30_consumption
+    - halfhourly_01_00_consumption
+    - halfhourly_01_30_consumption
+    - halfhourly_02_00_consumption
+    - halfhourly_02_30_consumption
+    - halfhourly_03_00_consumption
+    - halfhourly_03_30_consumption
+    - halfhourly_04_00_consumption
+    - halfhourly_04_30_consumption
+    - halfhourly_05_00_consumption
+    - halfhourly_05_30_consumption
+    - halfhourly_06_00_consumption
+    - halfhourly_06_30_consumption
+    - halfhourly_07_00_consumption
+    - halfhourly_07_30_consumption
+    - halfhourly_08_00_consumption
+    - halfhourly_08_30_consumption
+    - halfhourly_09_00_consumption
+    - halfhourly_09_30_consumption
+    - halfhourly_10_00_consumption
+    - halfhourly_10_30_consumption
+    - halfhourly_11_00_consumption
+    - halfhourly_11_30_consumption
+    - halfhourly_12_00_consumption
+    - halfhourly_12_30_consumption
+    - halfhourly_13_00_consumption
+    - halfhourly_13_30_consumption
+    - halfhourly_14_00_consumption
+    - halfhourly_14_30_consumption
+    - halfhourly_15_00_consumption
+    - halfhourly_15_30_consumption
+    - halfhourly_16_00_consumption
+    - halfhourly_16_30_consumption
+    - halfhourly_17_00_consumption
+    - halfhourly_17_30_consumption
+    - halfhourly_18_00_consumption
+    - halfhourly_18_30_consumption
+    - halfhourly_19_00_consumption
+    - halfhourly_19_30_consumption
+    - halfhourly_20_00_consumption
+    - halfhourly_20_30_consumption
+    - halfhourly_21_00_consumption
+    - halfhourly_21_30_consumption
+    - halfhourly_22_00_consumption
+    - halfhourly_22_30_consumption
+    - halfhourly_23_00_consumption
+    - halfhourly_23_30_consumption
+
+######################## Conso Templates ####################################""
+- platform : template
+  sensors:
+    heures_creuses:
+      friendly_name: 'Off-Peak Hours'
+      value_template: >
+        {{(((states('sensor.linky_halfhourly_03_30_consumption')|float) +(states('sensor.linky_halfhourly_04_00_consumption') |float)+ (states('sensor.linky_halfhourly_04_30_consumption')|float) + (states('sensor.linky_halfhourly_05_00_consumption') |float)+ (states('sensor.linky_halfhourly_05_30_consumption')|float) +(states('sensor.linky_halfhourly_06_00_consumption') |float)+ (states('sensor.linky_halfhourly_06_30_consumption')|float) +(states('sensor.linky_halfhourly_07_00_consumption') |float)+ (states('sensor.linky_halfhourly_07_30_consumption')|float) +(states('sensor.linky_halfhourly_08_00_consumption') |float) +(states('sensor.linky_halfhourly_12_30_consumption') |float)+ (states('sensor.linky_halfhourly_13_00_consumption')|float) + (states('sensor.linky_halfhourly_13_30_consumption') |float)+ (states('sensor.linky_halfhourly_14_00_consumption')|float) +(states('sensor.linky_halfhourly_14_30_consumption') |float)+ (states('sensor.linky_halfhourly_15_00_consumption')|float) + (states('sensor.linky_halfhourly_15_30_consumption')|float)  ) /2)| round(3)  }}
+      unit_of_measurement: 'kWh'
+
+- platform : template
+  sensors:
+    price_heures_creuses:
+      friendly_name: 'Price Off-Peak'
+      value_template: >
+        {{ (states.sensor.heures_creuses.state | multiply(0.1244))  | round(2)}}
+      unit_of_measurement: '€'
+- platform : template
+  sensors:
+    heures_pleines:
+      friendly_name: 'Peak Hours'
+      value_template: >
+        {{((states('sensor.linky_daily_1d_consumption')|float)- (states.sensor.heures_creuses.state)|float) | round (3) }}
+      unit_of_measurement: 'kWh'
+- platform : template
+  sensors:
+    price_heures_plaines:
+      friendly_name: 'Price Peak'
+      value_template: >
+        {{ (states.sensor.heures_pleines.state | multiply(0.1593)) | round(2)}}
+      unit_of_measurement: '€'
+- platform : template
+  sensors:
+    price_conso_total:
+      friendly_name: 'Price Total'
+      value_template: >
+        {{ ( (states('sensor.price_heures_creuses')|float) + (states('sensor.price_heures_plaines')|float) )|round(2) }}
+      unit_of_measurement: '€'
+
+
+## Gearbest
+#- platform: gearbest
+#  currency: EUR
+#  items:
+#    - id: 626695
+#      name: Xiaomi Aqara Switch
+#    - id: 626702
+#      name: Xiaomi Aqara Temp Sensor
+#    - id: 659226
+#      name: Xiaomi Aqara Motion Sensor
+#    - id: 626703
+#      name: Xiaomi Aqara Door Sensor
 
 # Playing on mopidy
 - platform: template
@@ -129,38 +240,38 @@
               mdi:volume-off
           {%- endif %}
 
-# https://community.home-assistant.io/t/howto-create-battery-alert-without-creating-a-template-for-every-device/30576/6
-- platform: template
-  sensors:
-    low_battery:
-      friendly_name: "Low Battery"
-      value_template: >
-        {%- set threshold = 30 -%}
-        {%- set domains = ['light', 'switch', 'sensor'] -%}
-        {%- for domain in domains -%}
-        {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-            {{ item.attributes.friendly_name }}{%- if not loop.last %}, {% endif -%}
-        {%- endfor -%}
-        {%- endfor -%}
-        
-# plants
-- platform: template
-  sensors:
-    fleur_de_lune_humidity_too_low:
-      value_template: >
-        {{ (((states.sensor.fleur_de_lune_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
-      friendly_name: Fleur de Lune Humidity below 15%
-
-- platform: template
-  sensors:
-    tradescantia_humidity_too_low:
-      value_template: >
-        {{ (((states.sensor.tradescantia_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
-      friendly_name: tradescantia Humidity below 15%
-
-- platform: template
-  sensors:
-    chlorophytum_humidity_too_low:
-      value_template: >
-        {{ (((states.sensor.chlorophytum_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
-      friendly_name: chlorophytum Humidity below 15%
+## https://community.home-assistant.io/t/howto-create-battery-alert-without-creating-a-template-for-every-device/30576/6
+#- platform: template
+#  sensors:
+#    low_battery:
+#      friendly_name: "Low Battery"
+#      value_template: >
+#        {%- set threshold = 30 -%}
+#        {%- set domains = ['light', 'switch', 'sensor'] -%}
+#        {%- for domain in domains -%}
+#        {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+#            {{ item.attributes.friendly_name }}{%- if not loop.last %}, {% endif -%}
+#        {%- endfor -%}
+#        {%- endfor -%}
+#
+## plants
+#- platform: template
+#  sensors:
+#    fleur_de_lune_humidity_too_low:
+#      value_template: >
+#        {{ (((states.sensor.fleur_de_lune_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
+#      friendly_name: Fleur de Lune Humidity below 15%
+#
+#- platform: template
+#  sensors:
+#    tradescantia_humidity_too_low:
+#      value_template: >
+#        {{ (((states.sensor.tradescantia_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
+#      friendly_name: tradescantia Humidity below 15%
+#
+#- platform: template
+#  sensors:
+#    chlorophytum_humidity_too_low:
+#      value_template: >
+#        {{ (((states.sensor.chlorophytum_moisture.state )| default(100)) | int < 15) and (as_timestamp(now()) - as_timestamp(states.automation.hass_start_sound.attributes.last_triggered | default(0)) | int > 900)}}
+#      friendly_name: chlorophytum Humidity below 15%

@@ -1,9 +1,9 @@
 #yeelight lamp reset
-door_lamp_reset:
-    alias: Reset Lampe entree
+child_lamp_reset:
+    alias: Reset Lampe enfants
     sequence:
       - service: homeassistant.turn_on
-        entity_id: light.door_lamp
+        entity_id: light.child_lamp
         data:
           brightness: 204
           color_temp: 310
@@ -31,6 +31,15 @@ corridor_lamp_reset:
     sequence:
       - service: homeassistant.turn_on
         entity_id: light.corridor_lamp
+        data:
+          brightness: 204
+          color_temp: 310
+
+kitchen_lamp_reset:
+    alias: Reset Lampe Couloir
+    sequence:
+      - service: homeassistant.turn_on
+        entity_id: light.kitchen_lamp
         data:
           brightness: 204
           color_temp: 310
