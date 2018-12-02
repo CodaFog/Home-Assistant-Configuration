@@ -18,8 +18,8 @@ homeassistant:
 #                                                 #
 ###################################################
 
-ifttt:
-  key: !secret ifttt_key
+#ifttt:
+#  key: !secret ifttt_key
 
 # Show links to resources in log and frontend
 #introduction:
@@ -32,7 +32,7 @@ config:
 
 http:
   # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
+  #api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   base_url: !secret base_url
   ssl_certificate: !secret ssl_certificate
@@ -40,10 +40,10 @@ http:
   #server_port: 80
   ip_ban_enabled: False #True
   login_attempts_threshold: 3
-  trusted_networks:
-    - 192.168.0.10
-    - 192.168.0.14
-    - 192.168.0.17
+  #trusted_networks:
+  #  - 192.168.0.10
+  #  - 192.168.0.14
+  #  - 192.168.0.17
 
 
 # Checks for available updates
@@ -61,11 +61,11 @@ discovery:
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
-#panel_iframe:
-#  configurator:
-#    title: Configurator
-#    icon: mdi:wrench
-#    url: https://192.168.0.20:3218
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: https://192.168.0.20:3218
 
 # Enables support for tracking state changes over time
 history:
@@ -95,7 +95,7 @@ logbook:
 
 recorder:
   #purge_interval: 2
-  purge_keep_days: 30
+  purge_keep_days: 15
   db_url: !secret mariadb_connection_url
   exclude:
     entities:
@@ -124,21 +124,17 @@ tts:
   - platform: google
 
 # Cloud
-#cloud:
+cloud:
 
-# twilio
-twilio:
-  account_sid: !secret twilio_account
-  auth_token: !secret twilio_token
+
+# duckdns
+duckdns:
+  domain: !secret duckdns_domain
+  access_token: !secret duckdns_token 
+
 
 # Notify
 notify:
-  - name: pushbullet
-    platform: pushbullet
-    api_key: !secret pushbullet_key
-  - name: anthony_sms
-    platform: twilio_sms
-    from_number: !secret twilio_number
   - name: anthony_messenger
     platform: facebook
     page_access_token: !secret facebook_token
@@ -157,6 +153,7 @@ zone: !include zones.yaml
 scene: !include_dir_merge_list scenes
 shell_command: !include shell_commands.yaml
 switch: !include switches.yaml
+panel_custom: !include panel_custom.yaml
 
 #################
 # Xiaomi Gateway
@@ -171,7 +168,6 @@ light:
   - platform: yeelight
     devices:
       192.168.0.40:
-        #name: Door lamp
         name: child lamp
         use_music_mode: False #True
         save_on_change: False
@@ -186,19 +182,26 @@ light:
         use_music_mode: False #True
         save_on_change: False
         transition: 100
-      # avant: 192.168.0.42:
       192.168.0.43:
         name: corridor lamp
         use_music_mode: False #True
         save_on_change: False
         transition: 100
-      # living room avant : 192.168.0.43
       192.168.0.44:
         name: living lamp
         use_music_mode: False #True
         save_on_change: False
         transition: 100
-
+      192.168.0.45:
+        name: toilet lamp
+        use_music_mode: False #True
+        save_on_change: False
+        transition: 100
+      192.168.0.46:
+        name: child led band
+        use_music_mode: False #True
+        save_on_change: False
+        transition: 100
 #mqtt:
 #  broker: 192.168.0.20
 #  port: 1883
@@ -209,29 +212,32 @@ light:
 
 media_player:
   - platform: kodi
-    host: 192.168.0.20
+    host: 192.168.0.21
  
   - platform: mpd
     host: 192.168.0.20
     name: mopidy
 
-google_assistant:
-  project_id: !secret google_project_id
-  client_id: !secret google_client_id
-  access_token: !secret google_access_token
-  agent_user_id: !secret google_agent_user_id
+#google_assistant:
+  #project_id: !secret google_project_id
+  #client_id: !secret google_client_id
+  #access_token: !secret google_access_token
+  #agent_user_id: !secret google_agent_user_id
   #api_key: !secret google_project_api_key
-  exposed_domains:
-    - switch
-    - light
-    - media_player
-    - group
+  #exposed_domains:
+  #  - switch
+  #  - light
+  #  - media_player
+  #  - group
 
 vacuum:
   - platform: xiaomi_miio
     host: 192.168.0.50
     token: !secret xiaomi_vacuum
 
+binary_sensor:
+  - platform: workday
+    country: FRA
 #hdmi_cec:
 #  devices:
 #    TV: 0.0.0.0

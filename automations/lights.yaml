@@ -1,23 +1,23 @@
-# turn on door lamp when door is opened
-- alias: "Allumer la lampe du salon quand la porte est ouverte"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.door_window_sensor_158d0001de6011
-    to: 'on'
-  condition:
-    #- condition: state
-    #  entity_id: group.Famille
-    #  state: home
-    - condition: sun
-      after: sunset
-      after_offset: "-01:00:00"
-  action:
-    - service: light.turn_on
-      data_template:
-        entity_id: light.living_lamp
-        brightness: 10
-        rgb_color: [255,77,0]
-        transition: 3
+## turn on door lamp when door is opened
+#- alias: "Allumer la lampe du salon quand la porte est ouverte"
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.door_window_sensor_158d0001de6011
+#    to: 'on'
+#  condition:
+#    #- condition: state
+#    #  entity_id: group.Famille
+#    #  state: home
+#    - condition: sun
+#      after: sunset
+#      after_offset: "-01:00:00"
+#  action:
+#    - service: light.turn_on
+#      data_template:
+#        entity_id: light.living_lamp
+#        brightness: 10
+#        rgb_color: [255,77,0]
+#        transition: 3
  
 # Turn off lights when everybody leaves the house - 10 minutes after
 - alias: 'Eteindre les lampes quand absents'

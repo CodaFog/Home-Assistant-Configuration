@@ -4,7 +4,7 @@
     - name: Home Assistant
       url: http://192.168.0.20:8123
     - name: Kodi
-      url: http://192.168.0.20:8080
+      url: http://192.168.0.21:8080
     - name: Urbackup
       url: http://192.168.0.20:55414
     - name: Webwin

@@ -7,7 +7,7 @@
     - platform: event
       event_type: click
       event_data:
-        entity_id: binary_sensor.switch_158d0001d620a5
+        entity_id: binary_sensor.switch_158d0001e75aa9
         click_type: single
   action:
     - service: light.toggle
@@ -20,8 +20,57 @@
     - platform: event
       event_type: click
       event_data:
+        entity_id: binary_sensor.switch_158d0001e75aa9
+        click_type: double
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kitchen_lamp #group.lights
+    - service: light.turn_on
+      data_template:
+        entity_id: light.living_lamp
+        brightness: 1
+        rgb_color: [255,77,0]
+        #transition: 3
+
+# long click aqara wireless switch off all lamps
+- alias: "Inter Entree clic long Off des Lampes"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001e75aa9
+        click_type: long_click_press #double
+  action:
+    - service: light.turn_off
+      entity_id: group.lights
+    - service: switch.turn_off
+      entity_id: switch.prise_halogene_enfants
+
+#########
+# SALON #
+#########
+# single click aqara wireless switch toggle one light
+- alias: "Inter Salon simple clic On salon"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
         entity_id: binary_sensor.switch_158d0001d620a5
-        click_type: double #long_click_press
+        click_type: single
+  action:
+    - service: light.toggle
+      data_template:
+        entity_id: light.living_lamp
+
+# double click aqara wireless switch on lights corridor and principal door
+- alias: "Inter Salon double clic On salon et cuisine"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001d620a5
+        click_type: double
   action:
     - service: light.turn_on
       data_template:
@@ -41,9 +90,9 @@
     #  data_template:
     #    entity_id: light.corridor_lamp
     #    brightness: 200
-    #    rgb_color: [255,183,123]    
+    #    rgb_color: [255,183,123]
 # long click aqara wireless switch off all lamps
-- alias: "Inter Entree clic long Off des Lampes"
+- alias: "Inter Salon clic long Off des Lampes"
   trigger:
     - platform: event
       event_type: click
@@ -53,12 +102,31 @@
   action:
     - service: light.turn_off
       entity_id: group.lights
-      
+    - service: switch.turn_off
+      entity_id: switch.prise_halogene_enfants
+
 ###########
 # CHAMBRE #
 ###########
 # single click aqara wireless switch on one light only
-- alias: "Inter Chambre simple clic On veilleuse"
+#- alias: "Inter Chambre simple clic On veilleuse"
+#  trigger:
+#    - platform: event
+#      event_type: click
+#      event_data:
+#        entity_id: binary_sensor.switch_158d0001d8e538
+#        click_type: single
+#  condition:
+#    condition: state
+#    entity_id: light.gateway_light_7811dcb0612b
+#    state: 'off'
+#  action:
+#    - service: light.turn_on
+#      data_template:
+#        entity_id: light.gateway_light_7811dcb0612b
+#        brightness: 20
+#        rgb_color: [255,77,0]
+- alias: "Inter Chambre simple clic On Couloir"
   trigger:
     - platform: event
       event_type: click
@@ -67,17 +135,40 @@
         click_type: single
   condition:
     condition: state
-    entity_id: light.gateway_light_7811dcb0612b
+    entity_id: light.corridor_lamp
     state: 'off'
   action:
     - service: light.turn_on
       data_template:
-        entity_id: light.gateway_light_7811dcb0612b
-        brightness: 20
-        rgb_color: [255,77,0]
+        entity_id: light.corridor_lamp
+        #brightness: 20
+        #rgb_color: [255,77,0]
 
 # single long click aqara wireless swith on two lamps
-- alias: "Inter Chambre clic long On chevet et veilleuse"
+#- alias: "Inter Chambre clic long On chevet et veilleuse"
+#  trigger:
+#    - platform: event
+#      event_type: click
+#      event_data:
+#        entity_id: binary_sensor.switch_158d0001d8e538
+#        click_type: long_click_press
+#  condition:
+#    condition: state
+#    entity_id: light.gateway_light_7811dcb0612b
+#    state: 'off'
+#  action:
+#    - service: light.turn_on
+#      data_template:
+#        entity_id: light.bedroom_lamp
+#        brightness: 1
+#        rgb_color: [255,77,0]
+#        transition: 3
+#    - service: light.turn_on
+#      data_template:
+#        entity_id: light.gateway_light_7811dcb0612b
+#        brightness: 20
+#        rgb_color: [255,77,0]
+- alias: "Inter Chambre clic long On Couloir et Halogene"
   trigger:
     - platform: event
       event_type: click
@@ -86,23 +177,20 @@
         click_type: long_click_press
   condition:
     condition: state
-    entity_id: light.gateway_light_7811dcb0612b
+    entity_id: light.corridor_lamp
     state: 'off'
   action:
     - service: light.turn_on
       data_template:
-        entity_id: light.bedroom_lamp
-        brightness: 1
-        rgb_color: [255,77,0]
+        entity_id: light.corridor_lamp
+        #brightness: 1
+        #rgb_color: [255,77,0]
         transition: 3
-    - service: light.turn_on
-      data_template:
-        entity_id: light.gateway_light_7811dcb0612b
-        brightness: 20
-        rgb_color: [255,77,0]
+    - service: switch.turn_on
+      entity_id: switch.prise_halogene_enfants
 
 # single click aqara wireless switch off both lamp
-- alias: "Inter Chambre simple clic Off chevet veilleuse"
+- alias: "Inter Chambre simple clic Off chevet Halogene couloir"
   trigger:
     - platform: event
       event_type: click
@@ -113,16 +201,18 @@
     condition: or
     conditions:
       - condition: state
-        entity_id: light.gateway_light_7811dcb0612b
+        entity_id: light.corridor_lamp
         state: 'on'
       - condition: state
         entity_id: light.bedroom_lamp
         state: 'on'
   action:
     - service: light.turn_off
-      entity_id: light.gateway_light_7811dcb0612b
+      entity_id: light.corridor_lamp
     - service: light.turn_off
       entity_id: light.bedroom_lamp
+    #- service: switch.turn_off
+    #  entity_id: switch.prise_halogene_enfants
 
 # double click aqara wireless switch off lamps
 - alias: "Inter Chambre double clic Off Lampes"
@@ -135,38 +225,39 @@
   action:
     - service: light.turn_off
       entity_id: group.lights
+    - service: switch.turn_off
+      entity_id: switch.prise_halogene_enfants
 
-
-#########
-# SALON #
 ##########
-# single click aqara wireless switch toggle one light
-- alias: "Inter Salon simple clic On Salon"
-  trigger:
-    - platform: event
-      event_type: click
-      event_data:
-        entity_id: binary_sensor.switch_158d00021330ad
-        click_type: single
-  action:
-    - service: light.toggle
-      data_template:
-        entity_id: light.living_lamp
-# double click aqara wireless switch on lights corridor and living room
-- alias: "Inter Salon double clic On romantic Salon et couloir"
-  trigger:
-    - platform: event
-      event_type: click
-      event_data:
-        entity_id: binary_sensor.switch_158d00021330ad
-        click_type: double
-  action:
-    - service: scene.turn_on
-      entity_id: scene.romantic
-    #- service: light.turn_on
-    #  data_template:
-    #    entity_id: light.door_lamp - service: light.turn_on data_template: entity_id: light.living_lamp brightness: 1 rgb_color: [255,77,0]
-        
+## SALON #
+###########
+## single click aqara wireless switch toggle one light
+#- alias: "Inter Salon simple clic On Salon"
+#  trigger:
+#    - platform: event
+#      event_type: click
+#      event_data:
+#        entity_id: binary_sensor.switch_158d00021330ad
+#        click_type: single
+#  action:
+#    - service: light.toggle
+#      data_template:
+#        entity_id: light.living_lamp
+## double click aqara wireless switch on lights corridor and living room
+#- alias: "Inter Salon double clic On romantic Salon et couloir"
+#  trigger:
+#    - platform: event
+#      event_type: click
+#      event_data:
+#        entity_id: binary_sensor.switch_158d00021330ad
+#        click_type: double
+#  action:
+#    - service: scene.turn_on
+#      entity_id: scene.romantic
+#    #- service: light.turn_on
+#    #  data_template:
+#    #    entity_id: light.door_lamp - service: light.turn_on data_template: entity_id: light.living_lamp brightness: 1 rgb_color: [255,77,0]
+#
 ## long click aqara wireless switch off lamps
 #- alias: "Inter Salon clic long scene nightmode Salon et couloir"
 #  trigger:
@@ -179,3 +270,108 @@
 #    - service: scene.turn_on
 #      data_template:
 #        entity_id: scene.nightmode
+
+##########
+# ENFANT #
+##########
+# single click aqara wireless switch toggle one light
+- alias: "Inter Enfant simple clic On Halogne"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0002132fbd
+        click_type: single
+  action:
+    - service: switch.toggle
+      entity_id: switch.prise_halogene_enfants
+
+# double click aqara wireless switch on lights corridor and living room
+- alias: "Inter Enfant double clic On Halogene et chambre"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0002132fbd
+        click_type: double
+  action:
+    - service: light.turn_on
+      entity_id: light.child_lamp
+    - service: switch.turn_on
+      entity_id: switch.prise_halogene_enfants
+
+##############
+# ENFANT LIT #
+##############
+# single click aqara wireless switch toggle one light
+- alias: "Inter Enfant Lit simple clic On Halogne"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001e8226a
+        click_type: single
+  action:
+    - service: switch.toggle
+      entity_id: switch.prise_halogene_enfants
+
+# double click aqara wireless switch on lights corridor and living room
+- alias: "Inter Enfant Lit double clic On Halogene et chambre et led"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001e8226a
+        click_type: double
+  action:
+    - service: light.turn_on
+      entity_id: light.child_lamp
+    - service: switch.turn_on
+      entity_id: switch.prise_halogene_enfants
+    - service: light.turn_on
+      entity_id: light.child_led_band
+
+# long click aqara wireless switch off all lamps
+- alias: "Inter Enfant Lit clic long Off des Lampes"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001e8226a
+        click_type: long_click_press
+  action:
+    - service: light.turn_off
+      entity_id: light.child_lamp
+    - service: switch.turn_off
+      entity_id: switch.prise_halogene_enfants
+    - service: light.turn_off
+      entity_id: light.child_led_band
+
+###########
+# CUISINE #
+###########
+# single click aqara wireless switch toggle one light
+- alias: "Inter Cuisine simple clic On Cuisine"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0002132ff3
+        click_type: single
+  action:
+    - service: light.toggle
+      entity_id: light.kitchen_lamp
+
+# double click aqara wireless switch on lights corridor and living room
+- alias: "Inter Cuisine double clic Off lamps"
+  trigger:
+    - platform: event
+      event_type: click
+      event_data:
+        entity_id: binary_sensor.switch_158d0002132ff3
+        click_type: double
+  action:
+    - service: light.turn_off
+      entity_id: group.lights
+    - service: switch.turn_off
+      entity_id: switch.prise_halogene_enfants

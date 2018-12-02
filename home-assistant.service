@@ -1,0 +1,30 @@
+[Unit]
+Description=Home Assistant
+After=network-online.target
+
+[Service]
+Type=simple
+#User=%i
+User=homeassistant
+# Some security related options.
+# See https://www.freedesktop.org/software/systemd/man/systemd.exec.html for details.
+# NoNewPrivileges=true
+# InaccessiblePaths=-/mnt -/media
+# ReadOnlyPaths=/bin -/lib -/lib64 -/sbin
+# PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+MemoryDenyWriteExecute=true
+ProtectControlGroups=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectSystem=true
+RestrictRealtime=true
+RestrictNamespaces=true
+
+ExecStart=/srv/homeassistant/bin/hass -c "/home/homeassistant/.homeassistant"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

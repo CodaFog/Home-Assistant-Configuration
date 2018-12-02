@@ -63,10 +63,10 @@
 - platform: miflora
   mac: !secret mac_miflora1
   name: Fleur de Lune
-  force_update: true
-  median: 1
-  timeout: 60
-  cache_value: 1800
+  #force_update: true
+  median: 2
+  #timeout: 60
+  scan_interval: 3600
   monitored_conditions:
     - temperature
     - moisture
@@ -77,10 +77,10 @@
 - platform: miflora
   mac: !secret mac_miflora2
   name: chlorophytum
-  force_update: true
-  median: 1
-  timeout: 60
-  cache_value: 1870
+  #force_update: true
+  median: 2
+  #timeout: 60
+  scan_interval: 3670
   monitored_conditions:
     - temperature
     - moisture
@@ -91,10 +91,10 @@
 - platform: miflora
   mac: !secret mac_miflora3
   name: tradescantia
-  force_update: true
-  median: 1
-  timeout: 60
-  cache_value: 1730
+  #force_update: true
+  median: 2
+  #timeout: 60
+  scan_interval: 3730
   monitored_conditions:
     - temperature
     - moisture

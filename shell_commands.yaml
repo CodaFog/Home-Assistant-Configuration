@@ -4,9 +4,13 @@ child_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_s
 corridor_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.43"'
 living_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.44"'
 kitchen_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.42"'
+toilet_lamp_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.45"'
+child_led_band_sunrise: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_sunrise.sh "192.168.0.46"'
+
 # Candle effect
 living_lamp_candle: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_candle.sh "192.168.0.44"'
 kitchen_lamp_candle: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_candle.sh "192.168.0.42"'
+
 # 478 breathing method
 bedroom_lamp_method_478: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_method_4-7-8.sh "192.168.0.41"'
 living_lamp_method_478: '/home/homeassistant/.homeassistant/shell_scripts/yeelight_method_4-7-8.sh "192.168.0.44"'

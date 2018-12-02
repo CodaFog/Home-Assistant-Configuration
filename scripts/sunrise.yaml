@@ -6,16 +6,9 @@ sunrise_bedroom:
       #  entity_id: light.bedroom_lamp
       - service: shell_command.bedroom_lamp_sunrise
 
-#sunrise_principal_door:
-#    alias: Simulation Aube Ampoule Entree
-#    sequence:
-#      - service: shell_command.door_lamp_sunrise
-
 sunrise_living_room:
     alias: Simulation Aube Ampoule Salon
     sequence:
-      #- service: homeassistant.turn_on
-      #  entity_id: light.living_lamp
       - service: shell_command.living_lamp_sunrise
 
 sunrise_corridor:
@@ -32,3 +25,8 @@ sunrise_child:
     alias: Simulation Aube Ampoule Enfants
     sequence:
       - service: shell_command.child_lamp_sunrise
+
+sunrise_child_led:
+    alias: Simulation Aube Bandeau Led Enfants
+    sequence:
+      - service: shell_command.child_led_band_sunrise

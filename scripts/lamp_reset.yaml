@@ -44,3 +44,11 @@ kitchen_lamp_reset:
           brightness: 204
           color_temp: 310
 
+toilet_lamp_reset:
+    alias: Reset Lampe toillettes
+    sequence:
+      - service: homeassistant.turn_on
+        entity_id: light.toilet_lamp
+        data:
+          brightness: 204
+          color_temp: 310
