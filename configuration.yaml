@@ -65,7 +65,7 @@ panel_iframe:
   configurator:
     title: Configurator
     icon: mdi:wrench
-    url: https://192.168.0.20:3218
+    url: http://192.168.0.20:3218
 
 # Enables support for tracking state changes over time
 history:

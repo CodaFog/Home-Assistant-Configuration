@@ -16,20 +16,20 @@
         entity_id: light.corridor_lamp
         state: 'off'
       - condition: numeric_state
-        entity_id: sensor.illumination_158d0002254942 #sensor.illumination_7811dcb0612b #sensor.illumination_158d0002254942
-        below: 10 #400
+        entity_id: sensor.illumination_158d0002254942
+        below: 10
       - condition: state
-        entity_id: group.Famille
+        entity_id: group.famille
         state: 'home'
       - condition: time
         before: '22:30:00'
   action:
     service: light.turn_on
-    data_template:
-        entity_id: light.corridor_lamp
-        #rgb_color: [255,153,0]
+    entity_id: light.corridor_lamp
+#   data:
+        #transition: 1
         #brightness: 10
-        transition: 2
+        #rgb_color: [255,153,0]
 
 - alias: mouvement couloir allume lampe soir
   trigger:
@@ -44,20 +44,20 @@
         entity_id: light.corridor_lamp
         state: 'off'
       - condition: numeric_state
-        entity_id: sensor.illumination_158d0002254942 #sensor.illumination_7811dcb0612b #sensor.illumination_158d0002254942
-        below: 10 #400
+        entity_id: sensor.illumination_158d0002254942
+        below: 10
       - condition: state
-        entity_id: group.Famille
+        entity_id: group.famille
         state: 'home'
       - condition: time
         after: '22:30:01'
   action:
     service: light.turn_on
-    data_template:
-        entity_id: light.corridor_lamp
-        #rgb_color: [255,153,0]
-        #brightness: 5
-        transition: 2
+    entity_id: light.corridor_lamp
+#   data:
+#        #rgb_color: [255,153,0]
+#        #brightness: 5
+#        #transition: 1
 
 - alias: mouvement eteint couloir 1 minutes apres
   trigger:
@@ -86,44 +86,16 @@
         entity_id: light.toilet_lamp
         state: 'off'
       - condition: numeric_state
-        entity_id: sensor.illumination_158d000276d4e5 #sensor.illumination_7811dcb0612b
-        below: 9 #400
+        entity_id: sensor.illumination_158d000276d4e5
+        below: 9
       - condition: state
-        entity_id: group.Famille
+        entity_id: group.famille
         state: 'home'
-#      - condition: time
-#        before: '20:30:00'
   action:
     service: light.turn_on
-    data_template:
-        entity_id: light.toilet_lamp
-        transition: 1
-
-#- alias: mouvement toilettes allume lampe soir
-#  trigger:
-#    platform: state
-#    entity_id: binary_sensor.motion_sensor_158d000276d4e5
-#    from: 'off'
-#    to: 'on'
-#  condition:
-#    condition: and
-#    conditions:
-#      - condition: state
-#        entity_id: light.toilet_lamp
-#        state: 'off'
-#      - condition: numeric_state
-#        entity_id: sensor.illumination_158d000276d4e5 #sensor.illumination_7811dcb0612b
-#        below: 9 #400
-#      - condition: state
-#        entity_id: group.Famille
-#        state: 'home'
-#      - condition: time
-#        after: '20:30:01'
-#  action:
-#    service: light.turn_on
-#    data_template:
-#        entity_id: light.toilet_lamp
-#        transition: 2
+    entity_id: light.toilet_lamp
+#   data:
+#        transition: 1
 
 - alias: mouvement eteint toilettes 1 minutes apres
   trigger:

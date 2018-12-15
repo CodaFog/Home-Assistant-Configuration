@@ -5,27 +5,25 @@
 - alias: "Inter Entree simple clic On salon"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001e75aa9
         click_type: single
   action:
     - service: light.toggle
-      data_template:
-        entity_id: light.living_lamp
+      entity_id: light.living_lamp
 
 # double click aqara wireless switch on lights corridor and principal door
 - alias: "Inter Entree double clic On salon et cuisine"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001e75aa9
         click_type: double
   action:
     - service: light.turn_on
-      data_template:
-        entity_id: light.kitchen_lamp #group.lights
+      entity_id: light.kitchen_lamp #group.lights
     - service: light.turn_on
       data_template:
         entity_id: light.living_lamp
@@ -37,7 +35,7 @@
 - alias: "Inter Entree clic long Off des Lampes"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001e75aa9
         click_type: long_click_press #double
@@ -54,7 +52,7 @@
 - alias: "Inter Salon simple clic On salon"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d620a5
         click_type: single
@@ -67,7 +65,7 @@
 - alias: "Inter Salon double clic On salon et cuisine"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d620a5
         click_type: double
@@ -95,7 +93,7 @@
 - alias: "Inter Salon clic long Off des Lampes"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d620a5
         click_type: long_click_press #double
@@ -112,7 +110,7 @@
 #- alias: "Inter Chambre simple clic On veilleuse"
 #  trigger:
 #    - platform: event
-#      event_type: click
+#      event_type: xiaomi_aqara.click
 #      event_data:
 #        entity_id: binary_sensor.switch_158d0001d8e538
 #        click_type: single
@@ -129,7 +127,7 @@
 - alias: "Inter Chambre simple clic On Couloir"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d8e538
         click_type: single
@@ -148,7 +146,7 @@
 #- alias: "Inter Chambre clic long On chevet et veilleuse"
 #  trigger:
 #    - platform: event
-#      event_type: click
+#      event_type: xiaomi_aqara.click
 #      event_data:
 #        entity_id: binary_sensor.switch_158d0001d8e538
 #        click_type: long_click_press
@@ -171,7 +169,7 @@
 - alias: "Inter Chambre clic long On Couloir et Halogene"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d8e538
         click_type: long_click_press
@@ -193,7 +191,7 @@
 - alias: "Inter Chambre simple clic Off chevet Halogene couloir"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d8e538
         click_type: single
@@ -218,7 +216,7 @@
 - alias: "Inter Chambre double clic Off Lampes"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001d8e538
         click_type: double
@@ -235,7 +233,7 @@
 #- alias: "Inter Salon simple clic On Salon"
 #  trigger:
 #    - platform: event
-#      event_type: click
+#      event_type: xiaomi_aqara.click
 #      event_data:
 #        entity_id: binary_sensor.switch_158d00021330ad
 #        click_type: single
@@ -247,7 +245,7 @@
 #- alias: "Inter Salon double clic On romantic Salon et couloir"
 #  trigger:
 #    - platform: event
-#      event_type: click
+#      event_type: xiaomi_aqara.click
 #      event_data:
 #        entity_id: binary_sensor.switch_158d00021330ad
 #        click_type: double
@@ -262,7 +260,7 @@
 #- alias: "Inter Salon clic long scene nightmode Salon et couloir"
 #  trigger:
 #    - platform: event
-#      event_type: click
+#      event_type: xiaomi_aqara.click
 #      event_data:
 #        entity_id: binary_sensor.switch_158d00021330ad
 #        click_type: long_click_press
@@ -278,7 +276,7 @@
 - alias: "Inter Enfant simple clic On Halogne"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0002132fbd
         click_type: single
@@ -290,7 +288,7 @@
 - alias: "Inter Enfant double clic On Halogene et chambre"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0002132fbd
         click_type: double
@@ -307,7 +305,7 @@
 - alias: "Inter Enfant Lit simple clic On Halogne"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001e8226a
         click_type: single
@@ -319,7 +317,7 @@
 - alias: "Inter Enfant Lit double clic On Halogene et chambre et led"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001e8226a
         click_type: double
@@ -335,7 +333,7 @@
 - alias: "Inter Enfant Lit clic long Off des Lampes"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0001e8226a
         click_type: long_click_press
@@ -354,7 +352,7 @@
 - alias: "Inter Cuisine simple clic On Cuisine"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0002132ff3
         click_type: single
@@ -366,7 +364,7 @@
 - alias: "Inter Cuisine double clic Off lamps"
   trigger:
     - platform: event
-      event_type: click
+      event_type: xiaomi_aqara.click
       event_data:
         entity_id: binary_sensor.switch_158d0002132ff3
         click_type: double

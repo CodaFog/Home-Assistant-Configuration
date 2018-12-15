@@ -23,7 +23,7 @@
 - alias: 'Eteindre les lampes quand absents'
   trigger:
     platform: state
-    entity_id: group.Famille
+    entity_id: group.famille
     to: 'not_home'
   condition:
     condition: time

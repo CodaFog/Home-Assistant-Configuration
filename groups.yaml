@@ -8,10 +8,9 @@ default_view:
   entities:
     - sun.sun
     - sensor.time
-    - group.AlarmClock
+    - group.alarmclock
     - group.famille
-    - group.InputBooleans
-    - group.switchs
+    - group.inputbooleans
     - group.security
     - group.links
     - group.scenes
@@ -244,7 +243,7 @@ toilets:
 ##############
 # LIENS
 ##############
-Links:
+links:
  name: Liens
  entities:
   - weblink.freebox
@@ -259,20 +258,24 @@ Links:
 ###################
 # Famille tracker
 ####################
-Famille:
+famille:
+  name: Famille
   entities:
     - device_tracker.phone_natacha
     - device_tracker.phone_nicole
     - device_tracker.phone_patricia
-    #- device_tracker.phone_anthony_boulot
     - device_tracker.phone_anthony
+    - device_tracker.redmi4xredmianthony
+    - device_tracker.redmi4xredminat
+    - device_tracker.iphonedenicole
+#    - device_tracker.phone_anthony_boulot
 
 media:
   entities:
     - media_player.kodi
     - media_player.mopidy
 
-AlarmClock:
+alarmclock:
   control: hidden
   name: Réveil
   entities:
@@ -282,7 +285,7 @@ AlarmClock:
     - input_number.alarmminutes
     - input_boolean.alarmworkday
 
-#IlluminationGateway:
+#illuminationgateway:
 #  control: hidden
 #  name: Allumage Lampe Gateway Couloir
 #  entities:
@@ -290,7 +293,7 @@ AlarmClock:
 #    - sensor.illumination_7811dcb0612b
 #    - input_number.thresillum
 
-# Weather
+# Meteo
 weather prediction:
     - sensor.date
     - sensor.time
@@ -303,7 +306,7 @@ weather prediction:
     - sensor.pws_alerts
     - sensor.yr_temperature
 
-InputBooleans:
+inputbooleans:
   name: Modes
   entities:
     - input_boolean.vacation_mode
@@ -325,7 +328,7 @@ scenes:
     - scene.nightmode
 
 ########
-# PLANT
+# PLANTES
 ########
 plants:
   name: Plantes
