@@ -19,17 +19,30 @@
     - type: load_5m
 
 # Weather
-- platform: wunderground
-  api_key: !secret wu_api_key
-  lang: FR
+#- platform: wunderground
+#  api_key: !secret wu_api_key
+#  lang: FR
+#  monitored_conditions:
+#    - alerts
+#    - location
+#    - temp_c
+#    - weather
+#    - feelslike_string
+#    - precip_1hr_metric
+#    - wind_kph
+
+- platform: meteo_france
+  postal_code: !secret postal_code
   monitored_conditions:
-    - alerts
-    - location
-    - temp_c
+    - temperature
     - weather
-    - feelslike_string
-    - precip_1hr_metric
-    - wind_kph
+    - wind_speed
+    - uv
+    - next_rain
+    - freeze_chance
+    - rain_chance
+    - snow_chance
+    - thunder_chance
 
 # SSL certificate expiration
 - platform: cert_expiry
@@ -166,7 +179,7 @@
 - platform : template
   sensors:
     heures_creuses:
-      friendly_name: 'Off-Peak Hours'
+      friendly_name: 'Conso Heures Creuses'
       value_template: >
         {{(((states('sensor.linky_halfhourly_03_30_consumption')|float) +(states('sensor.linky_halfhourly_04_00_consumption') |float)+ (states('sensor.linky_halfhourly_04_30_consumption')|float) + (states('sensor.linky_halfhourly_05_00_consumption') |float)+ (states('sensor.linky_halfhourly_05_30_consumption')|float) +(states('sensor.linky_halfhourly_06_00_consumption') |float)+ (states('sensor.linky_halfhourly_06_30_consumption')|float) +(states('sensor.linky_halfhourly_07_00_consumption') |float)+ (states('sensor.linky_halfhourly_07_30_consumption')|float) +(states('sensor.linky_halfhourly_08_00_consumption') |float) +(states('sensor.linky_halfhourly_12_30_consumption') |float)+ (states('sensor.linky_halfhourly_13_00_consumption')|float) + (states('sensor.linky_halfhourly_13_30_consumption') |float)+ (states('sensor.linky_halfhourly_14_00_consumption')|float) +(states('sensor.linky_halfhourly_14_30_consumption') |float)+ (states('sensor.linky_halfhourly_15_00_consumption')|float) + (states('sensor.linky_halfhourly_15_30_consumption')|float)  ) /2)| round(3)  }}
       unit_of_measurement: 'kWh'
@@ -174,30 +187,30 @@
 - platform : template
   sensors:
     price_heures_creuses:
-      friendly_name: 'Price Off-Peak'
+      friendly_name: 'Cout Heures Creuses'
       value_template: >
         {{ (states.sensor.heures_creuses.state | multiply(0.1244))  | round(2)}}
       unit_of_measurement: '€'
 - platform : template
   sensors:
     heures_pleines:
-      friendly_name: 'Peak Hours'
+      friendly_name: 'Conso Heures Pleines'
       value_template: >
         {{((states('sensor.linky_daily_1d_consumption')|float)- (states.sensor.heures_creuses.state)|float) | round (3) }}
       unit_of_measurement: 'kWh'
 - platform : template
   sensors:
-    price_heures_plaines:
-      friendly_name: 'Price Peak'
+    price_heures_pleines:
+      friendly_name: 'Cout Heures Pleines'
       value_template: >
         {{ (states.sensor.heures_pleines.state | multiply(0.1593)) | round(2)}}
       unit_of_measurement: '€'
 - platform : template
   sensors:
     price_conso_total:
-      friendly_name: 'Price Total'
+      friendly_name: 'Cout Total'
       value_template: >
-        {{ ( (states('sensor.price_heures_creuses')|float) + (states('sensor.price_heures_plaines')|float) )|round(2) }}
+        {{ ( (states('sensor.price_heures_creuses')|float) + (states('sensor.price_heures_pleines')|float) )|round(2) }}
       unit_of_measurement: '€'
 
 

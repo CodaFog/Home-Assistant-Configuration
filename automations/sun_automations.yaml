@@ -34,3 +34,5 @@
       entity_id: group.lights
     - service: switch.turn_off
       entity_id: switch.prise_halogene_enfants
+    - service: switch.turn_off
+      entity_id: switch.prise_salon

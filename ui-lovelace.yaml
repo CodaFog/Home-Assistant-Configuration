@@ -1,0 +1,392 @@
+title: Maison
+views:
+  - cards:
+      - title: Réveil
+        type: entities
+        show_header_toggle: false
+        entities:
+          - automation.reveil_matin
+          - sensor.alarm_time
+          - input_number.alarmhour
+          - input_number.alarmminutes
+          - input_boolean.alarmworkday
+      - title: Famille
+        type: entities
+        show_header_toggle: true
+        entities:
+          - device_tracker.redmi4xredmianthony
+          - device_tracker.redmi4xredminat
+          - device_tracker.iphonedenicole
+          - device_tracker.galaxya82018
+          - device_tracker.iphonedepatricia
+      - title: Shopping List
+        type: shopping-list
+      - title: Modes
+        type: entities
+        show_header_toggle: true
+        entities:
+          - input_boolean.vacation_mode
+          - input_boolean.alarmworkday
+          - input_boolean.guest_mode
+          - input_boolean.alarm_set
+      - title: Eclairages
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.gateway_light_7811dcb0612b
+          - light.child_lamp
+          - light.bedroom_lamp
+          - light.corridor_lamp
+          - light.living_lamp
+          - light.kitchen_lamp
+          - light.toilet_lamp
+          - light.child_led_band
+          - switch.prise_halogene_enfants
+          - switch.prise_salon
+      - title: Ambiances
+        type: entities
+        show_header_toggle: true
+        entities:
+          - scene.romantic
+          - scene.tvtime
+          - scene.normal
+          - scene.nightmode
+      - title: Sécurité
+        type: entities
+        show_header_toggle: true
+        entities:
+          - binary_sensor.door_window_sensor_158d0001de6011
+          - binary_sensor.motion_sensor_158d0002254942
+          - binary_sensor.motion_sensor_158d000276d4e5
+      - type: media-control
+        entity: media_player.anthony_echo
+      - title: Liens
+        type: entities
+        show_header_toggle: true
+        entities:
+          - type: weblink
+            url: 'http://mafreebox.freebox.fr'
+            name: Freebox
+          - type: weblink
+            url: 'http://192.168.0.20:8123'
+            name: Home Assistant
+          - type: weblink
+            url: 'http://192.168.0.21:8080'
+            name: Kodi
+          - type: weblink
+            url: 'http://192.168.0.20:55414'
+            name: Urbackup
+          - type: weblink
+            url: 'https://192.168.0.20:10000'
+            name: Webwin
+          - type: weblink
+            url: 'http://192.168.0.20:9091'
+            name: Transmission
+          - type: weblink
+            url: 'http://192.168.0.20:6680/mopidy'
+            name: Mopidy
+          - type: weblink
+            url: 'http://192.168.0.20:9000'
+            name: Portainer
+      - state: < 100
+        card:
+          title: Batteries Faibles
+          type: entities
+        type: 'custom:auto-entities'
+        filter:
+          include:
+            - attributes:
+                battery_level: < 20
+            - entity_id: sensor.*_battery
+      - title: Consommation électrique
+        type: entities
+        show_header_toggle: true
+        entities:
+          - sensor.linky_daily_1d_consumption
+          - sensor.price_conso_total
+          - sensor.heures_creuses
+          - sensor.price_heures_creuses
+          - sensor.heures_pleines
+          - sensor.price_heures_pleines
+          - sensor.linky_daily_2d_consumption
+          - sensor.linky_monthly_current_consumption
+          - sensor.linky_monthly_1m_consumption
+          - sensor.linky_yearly_current_consumption
+    path: default_view
+    icon: 'mdi:home'
+    title: Maison
+    badges:
+      - sensor.time
+      - sun.sun
+  - cards:
+      - title: Eclairages
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.gateway_light_7811dcb0612b
+          - light.child_lamp
+          - light.bedroom_lamp
+          - light.corridor_lamp
+          - light.living_lamp
+          - light.kitchen_lamp
+          - light.toilet_lamp
+          - light.child_led_band
+          - switch.prise_halogene_enfants
+          - switch.prise_salon
+    path: lights_view
+    icon: 'mdi:lightbulb'
+    title: lights_view
+    badges: []
+  - cards:
+      - title: Aspirateur
+        type: entities
+        entities:
+          - vacuum.xiaomi_vacuum_cleaner
+    path: vacuum_view
+    icon: 'mdi:robot-vacuum'
+    title: Aspirateur
+    badges: []
+  - cards:
+      - title: Plantes
+        type: entities
+        show_header_toggle: false
+        entities:
+          - sensor.fleur_de_lune_temperature
+          - sensor.fleur_de_lune_moisture
+          - sensor.fleur_de_lune_light_intensity
+          - sensor.fleur_de_lune_conductivity
+          - sensor.fleur_de_lune_battery
+          - sensor.chlorophytum_temperature
+          - sensor.chlorophytum_moisture
+          - sensor.chlorophytum_light_intensity
+          - sensor.chlorophytum_conductivity
+          - sensor.chlorophytum_battery
+          - sensor.tradescantia_temperature
+          - sensor.tradescantia_moisture
+          - sensor.tradescantia_light_intensity
+          - sensor.tradescantia_conductivity
+          - sensor.tradescantia_battery
+    path: plants_view
+    icon: 'mdi:flower'
+    title: plants_view
+    badges: []
+  - cards:
+      - title: Portes et fenêtres
+        type: entities
+        show_header_toggle: true
+        entities:
+          - binary_sensor.door_window_sensor_158d0001de6011
+      - title: Température et humidité
+        type: entities
+        show_header_toggle: true
+        entities:
+          - sensor.fleur_de_lune_temperature
+          - sensor.chlorophytum_temperature
+      - title: Mouvements
+        type: entities
+        show_header_toggle: true
+        entities:
+          - binary_sensor.motion_sensor_158d0002254942
+          - binary_sensor.vibration_158d0002a222f5
+          - binary_sensor.motion_sensor_158d000276d4e5
+      - title: Luminosité
+        type: entities
+        show_header_toggle: true
+        entities:
+          - sensor.illumination_7811dcb0612b
+          - sensor.illumination_158d0002254942
+          - sensor.illumination_158d000276d4e5
+    path: sensor_view
+    icon: 'mdi:gauge'
+    title: Capteurs
+    badges: []
+  - cards:
+      - title: weather prediction
+        type: entities
+        show_header_toggle: true
+        entities:
+          - sensor.date
+          - sensor.time
+          - sensor.belligne_temperature
+          - sensor.belligne_weather
+          - sensor.belligne_wind_speed
+          - sensor.belligne_uv
+          - sensor.belligne_next_rain
+          - sensor.belligne_freeze_chance
+          - sensor.belligne_rain_chance
+          - sensor.belligne_snow_chance
+          - sensor.belligne_thunder_chance
+          - sensor.yr_temperature
+    path: weather_view
+    icon: 'mdi:temperature-celsius'
+    title: Météo
+    badges:
+      - sensor.moon
+      - sun.sun
+  - cards:
+      - type: media-control
+        entity: media_player.kodi
+      - type: media-control
+        entity: media_player.anthony_echo
+    path: media_view
+    icon: 'mdi:play-circle-outline'
+    title: Multimédia
+    badges: []
+  - cards:
+      - title: Chambre
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.bedroom_lamp
+          - binary_sensor.switch_158d0001d8e538
+      - title: Couloir
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.corridor_lamp
+          - binary_sensor.motion_sensor_158d0002254942
+          - sensor.illumination_158d0002254942
+      - title: Salon
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.living_lamp
+          - vacuum.xiaomi_vacuum_cleaner
+          - binary_sensor.cube_158d00011082c3
+          - sensor.fleur_de_lune_temperature
+          - binary_sensor.switch_158d0001d620a5
+          - binary_sensor.switch_158d0001e75aa9
+          - switch.prise_salon
+          - light.gateway_light_7811dcb0612b
+          - sensor.illumination_7811dcb0612b
+      - title: Cuisine
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.kitchen_lamp
+          - binary_sensor.switch_158d0002132ff3
+      - title: Chambre Enfants
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.child_lamp
+          - light.child_led_band
+          - switch.prise_halogene_enfants
+          - binary_sensor.switch_158d0002132fbd
+          - binary_sensor.switch_158d0001e8226a
+      - title: Toilettes
+        type: entities
+        show_header_toggle: true
+        entities:
+          - light.toilet_lamp
+          - binary_sensor.motion_sensor_158d000276d4e5
+          - sensor.illumination_158d000276d4e5
+    path: rooms_view
+    icon: 'mdi:home-modern'
+    title: Pièces
+    badges: []
+  - cards:
+      - title: all automations
+        type: entities
+        show_header_toggle: true
+        entities:
+          - automation.cube_deplacement_eteint_couloir
+          - automation.cube_secouer_eteindre_les_lampes
+          - automation.cube_taper_deux_fois_allume_couloir_et_chevet
+          - automation.cube_tourner_180_allume_veilleuse_couloir
+          - automation.cube_tourner_90_lampe_salon
+          - automation.eteindre_les_lampes_apres_minuit
+          - automation.eteindre_les_lampes_au_lever_du_soleil
+          - automation.eteindre_les_lampes_quand_absents
+          - automation.inter_chambre_clic_long_on_couloir_et_halogene
+          - automation.inter_chambre_double_clic_off_lampes
+          - automation.inter_chambre_simple_clic_off_chevet_halogene_couloir
+          - automation.inter_chambre_simple_clic_on_couloir
+          - automation.inter_cuisine_double_clic_off_lamps
+          - automation.inter_cuisine_simple_clic_on_cuisine
+          - automation.inter_enfant_lit_clic_long_off_des_lampes
+          - >-
+            automation.inter_enfant_lit_double_clic_on_halogene_et_chambre_et_led
+          - automation.inter_enfant_lit_simple_clic_on_halogne
+          - automation.inter_enfant_double_clic_on_halogene_et_chambre
+          - automation.inter_enfant_simple_clic_on_halogne
+          - automation.inter_entree_clic_long_off_des_lampes
+          - automation.inter_entree_double_clic_on_salon_et_cuisine
+          - automation.inter_entree_simple_clic_on_salon
+          - automation.inter_salon_clic_long_off_des_lampes
+          - automation.inter_salon_double_clic_off_salon
+          - automation.inter_salon_simple_clic_on_salon
+          - automation.media_player_paused_stopped
+          - automation.media_player_playing
+          - automation.notification_nouvelle_version_de_home_assistant
+          - automation.notification_rappel_vitamine_paolo
+          - automation.notification_ssl_expiration_15_days
+          - automation.mouvement_couloir_allume_lampe_journee
+          - automation.mouvement_couloir_allume_lampe_soir
+          - automation.mouvement_eteint_couloir_1_minutes_apres
+          - automation.mouvement_eteint_toilettes_2_minutes_apres
+          - automation.mouvement_toilettes_allume_lampe_journee
+          - automation.reveil_matin
+      - title: all scripts
+        type: entities
+        show_header_toggle: true
+        entities:
+          - script.kitchen_lamp_reset
+          - script.corridor_lamp_reset
+          - script.living_lamp_reset
+          - script.bedroom_lamp_reset
+          - script.child_lamp_reset
+          - script.toilet_lamp_reset
+          - script.sunrise_corridor
+          - script.sunrise_kitchen
+          - script.sunrise_child
+          - script.sunrise_living_room
+          - script.sunrise_child_led
+          - script.sunrise_bedroom
+      - title: Modes
+        type: entities
+        show_header_toggle: true
+        entities:
+          - input_boolean.vacation_mode
+          - input_boolean.alarmworkday
+          - input_boolean.guest_mode
+          - input_boolean.alarm_set
+      - title: Ambiances
+        type: entities
+        show_header_toggle: true
+        entities:
+          - scene.romantic
+          - scene.tvtime
+          - scene.normal
+          - scene.nightmode
+    path: automation_view
+    icon: 'mdi:robot'
+    title: Home assistant
+    badges: []
+  - cards:
+      - title: Mise à jour
+        type: entities
+        entities:
+          - updater.updater
+    path: status_view
+    icon: 'mdi:server'
+    title: Statut serveur
+    badges:
+      - sensor.ssl_certificate_expiry
+      - sensor.processor_use
+      - sensor.load_5m
+      - sensor.disk_use_percent
+      - sensor.memory_use_percent
+      - sensor.last_boot
+      - sensor.hass_db_size
+      - sensor.freebox_download_speed
+      - sensor.freebox_upload_speed
+resources:
+  - type: js
+    url: /local/plugins/tracker-card.js?v=0
+  - type: js
+    url: /local/plugins/card-tools.js?v=0
+  - type: js
+    url: /local/plugins/auto-entities.js?v=0
+  - type: js
+    url: /local/plugins/monster-card.js?v=0

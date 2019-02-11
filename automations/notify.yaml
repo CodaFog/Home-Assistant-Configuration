@@ -70,11 +70,47 @@
   trigger:
     platform: state
     entity_id: updater.updater
+  condition:
+    - condition: state
+      entity_id: group.famille
+      state: 'home'
+    - condition: time
+      after: '10:00:00'
+      before: '21:00:00'
   action:
-    service: notify.anthony_messenger
-    data:
-      message: 'Nouvelle version de Home Assistant disponible.'
-      target: !secret anthony_number
+    - service: notify.anthony_messenger
+      data:
+        message: 'Nouvelle version de Home Assistant disponible.'
+        target: !secret anthony_number
+    - service: media_player.alexa_tts
+      data:
+        message: "Une nouvelle version de Home Assistant est disponible"
+        entity_id: media_player.anthony_echo
+
+##########################################################
+## Baby's vitamins
+##########################################################
+- alias: "Notification - Rappel Vitamine Paolo" 
+  trigger:
+    platform: time
+    at: '20:00:00'
+  condition:
+    - condition: state
+      entity_id: group.famille
+      state: 'home'
+  action:
+    - service: media_player.alexa_tts
+      data:
+        message: "C'est l'heure de la Vitamine D de Paolo"
+        entity_id: media_player.anthony_echo
+    - service: light.turn_on
+      data:
+        entity_id: light.living_lamp 
+        effect: WhatsApp
+    - service: light.turn_on
+      data:
+        entity_id: light.kitchen_lamp
+        effect: WhatsApp
 
 ##########################################################
 ## Pushbullet - Low Battery Alert

@@ -13,13 +13,6 @@
           - condition: state
             entity_id: input_boolean.alarmworkday
             state: 'on'
-#          - condition: time
-#            weekday:
-#              - mon
-#              - tue
-#              - wed
-#              - thu
-#              - fri
           - condition: state
             entity_id: 'binary_sensor.workday_sensor'
             state: 'on'
@@ -28,8 +21,12 @@
         state: 'off'
   action:
    # Yeelight sunrise
-    - service: script.turn_on
-      entity_id: script.sunrise_bedroom
+   #  - service: script.turn_on
+   #   entity_id: script.sunrise_bedroom
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom_lamp
+        effect: Sunrise
    # - service: script.turn_on
    #   entity_id: script.sunrise_kitchen
    # - service: script.turn_on

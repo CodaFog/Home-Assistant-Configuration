@@ -3,10 +3,10 @@ vacation_mode:
   name: Mode Vacances
   initial: off
   icon: mdi:airplane
-#guest_mode:
-#  name: Guest Mode
-#  initial: off
-#  icon: mdi:account-multiple
+guest_mode:
+  name: Guest Mode
+  initial: off
+  icon: mdi:account-multiple
 alarmworkday:
   name: Réveil activé en semaine
   initial: on #off

@@ -45,6 +45,8 @@ http:
   #  - 192.168.0.14
   #  - 192.168.0.17
 
+#lovelace:
+#  mode: yaml
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -75,7 +77,6 @@ history:
       - sensor.last_boot
     domains:
       - weblink
-      #- zone
       - automations
       - updater
 
@@ -86,9 +87,7 @@ logbook:
       - sensor.date
       - sensor.time
       - sensor.time_utc
-      - sensor.time__date
       - sensor.load_5m
-      - sensor.date__time
     domains:
       - weblink
       - group
@@ -99,19 +98,14 @@ recorder:
   db_url: !secret mariadb_connection_url
   exclude:
     entities:
-      #- sun.sun
       - sensor.moon
       - sensor.last_boot
-      #- sensor.date
     domains:
-      #- media_player
-      #- scene
       - weblink
-      #- zone
-      #- plant
-      #- input_number
       - automations
       - updater
+
+system_health:
 
 # Enables a map showing the location of tracked devices
 map:
@@ -125,7 +119,6 @@ tts:
 
 # Cloud
 cloud:
-
 
 # duckdns
 duckdns:
@@ -153,7 +146,7 @@ zone: !include zones.yaml
 scene: !include_dir_merge_list scenes
 shell_command: !include shell_commands.yaml
 switch: !include switches.yaml
-panel_custom: !include panel_custom.yaml
+#panel_custom: !include panel_custom.yaml
 
 #################
 # Xiaomi Gateway
@@ -202,6 +195,15 @@ light:
         use_music_mode: False #True
         save_on_change: False
         transition: 100
+    custom_effects:
+      - name: 'Sunrise'
+        flow_params:
+          count: 0
+          transitions:
+            - RGBTransition: [255, 77, 0, 50, 1]
+            - TemperatureTransition: [1700, 360000, 10]
+            - TemperatureTransition: [2700, 540000, 100]
+
 #mqtt:
 #  broker: 192.168.0.20
 #  port: 1883
@@ -214,10 +216,15 @@ media_player:
   - platform: kodi
     host: 192.168.0.21
  
-  - platform: mpd
-    host: 192.168.0.20
-    name: mopidy
+#  - platform: mpd
+#    host: 192.168.0.20
+#    name: mopidy
 
+  - platform: alexa
+    email: !secret alexa_username
+    password: !secret alexa_password
+    url: amazon.fr
+              
 #google_assistant:
   #project_id: !secret google_project_id
   #client_id: !secret google_client_id
@@ -238,6 +245,12 @@ vacuum:
 binary_sensor:
   - platform: workday
     country: FRA
+
+alexa:
+  smart_home:
+
+shopping_list:
+
 #hdmi_cec:
 #  devices:
 #    TV: 0.0.0.0
@@ -246,3 +259,4 @@ binary_sensor:
 # TODO
 # https://community.home-assistant.io/t/alarmsystem-with-appdaemon/31312/4
 
+custom_updater:

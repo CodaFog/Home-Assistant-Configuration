@@ -97,13 +97,13 @@
 #   data:
 #        transition: 1
 
-- alias: mouvement eteint toilettes 1 minutes apres
+- alias: mouvement eteint toilettes 2 minutes apres
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d000276d4e5
     to: 'off'
     for:
-      minutes: 1
+      minutes: 2
   action:
     service: light.turn_off
     entity_id: light.toilet_lamp
